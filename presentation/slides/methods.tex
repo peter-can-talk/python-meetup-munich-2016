@@ -1,12 +1,6 @@
 % Methods
 
-\begin{frame}
-  \centering
-  \huge
-  \color{orange}
-  \vspace{0.2cm}
-  How do I Machine Learning?
-\end{frame}
+\textframe{How do I Machine Learning?}
 
 \begin{slide}{Methods}
   \centering
@@ -289,7 +283,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
     % Data
     \onslide<2->{
     \foreach \i in {1, ..., 50} {
-      \draw [thin] ({2+rand*1.5}, {2+rand*1.5}) rectangle ++(0.09, 0.09);
+      \fill [black, thin] ({2+rand*1.5}, {2+rand*1.5}) circle [radius=1pt];
     }
     }
 
@@ -306,7 +300,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
     }
 
     \onslide<5->{
-      \fill [color=red] (1.8, 3.2) rectangle ++(0.09, 0.09);
+      \fill [red] (1.8, 3.2) circle [radius=1pt];
     }
 
     % Grid
@@ -636,6 +630,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
   $$\nu = \gamma\nu + \alpha\nabla J(w)$$
   $$w \leftarrow w - \nu$$
   \textbf{Momentum Optimizer}
+  % The momentum optimizer takes previous gradients into account, or the current "trend of the gradient". This can be especially helpful to overcome local optima. Think of the gradient as a ball rolling down a hill, when the slope is steep, adding the previous gradient will make the weight update go back further, as if the ball had caught on momentum from rolling down the hill. This way, when there is a slight hill upwards after the local minimum, the ball will have gathered enough momentum to overcome the hill (i.e. the weight update will move w past the hill). Because then \gamma\nu will be, say, very negative and the new gradient very (-\nabla J) slightly positive, in total, the negative will prevail and our ball will roll past the local optimum.
   }
 
 \end{slide}

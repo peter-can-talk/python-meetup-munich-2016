@@ -89,8 +89,20 @@ Deep learning book as source.
 
 Non-linear functions: XOR. Add quadratic terms to regression function.
 
-### Neural Networks ~ 10 mins
+### Neural Networks ~ 10 min
 
+1. Biological motivation
+2. Non-weighted Perceptron
+3. Weighted Perceptron (weight update algorithm)
+4. Why they don't work  (linear functions)
+5. the solution: add a hidden layer
+6. Different activation functions
+7. A NN is just a composition of functions
+8. The matrix operations
+9. Backprop
+10. Dropout
+
+Deprecated:
 ### Background & History
 
 Who invented them, MLP

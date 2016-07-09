@@ -24,6 +24,8 @@
 \usepackage{xcolor}
 \usepackage{blkarray}
 \usepackage{textcomp}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 	DRAWING
@@ -95,7 +97,7 @@
     \centering
     \Huge
     \color{orange}
-    \vspace{1cm}
+    \vspace{0.2cm}
     #1
   \end{frame}
 }
@@ -122,6 +124,7 @@
 
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\softmax}{softmax}
+\DeclareMathOperator*{\relu}{relu}
 
 \newcommand{\frameheader}[1]{{\Large #1}\vspace{0.5cm}}
 
@@ -134,12 +137,13 @@
  {\def\mysubscript{#1}\mathop\bgroup\begin{bmatrix}}
  {\end{bmatrix}\egroup_{\textstyle\mathstrut\mysubscript}}
 
- \newenvironment{spmatrix}[1]
-  {\def\mysubscript{#1}\mathop\bgroup\begin{pmatrix}}
-  {\end{pmatrix}\egroup_{\textstyle\mathstrut\mysubscript}}
+\newenvironment{spmatrix}[1]
+{\def\mysubscript{#1}\mathop\bgroup\begin{pmatrix}}
+{\end{pmatrix}\egroup_{\textstyle\mathstrut\mysubscript}}
 
 \newenvironment{slide}[1]
 {
+  \centering
 	\section{#1}
 	\begin{frame}
 		\frametitle{#1}
