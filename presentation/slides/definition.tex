@@ -1,0 +1,135 @@
+% Definition
+
+\begin{frame}
+  \centering
+  \vspace{0.4cm}
+  {\huge \color{orange} What is Machine Learning?}\\
+  \vspace{0.2cm}
+  \pause
+  {\small (and can I eat it?)}
+\end{frame}
+
+\begin{slide}{Definition I}
+  \centering
+  \Large
+  \pause
+  Machine Learning is cool.
+\end{slide}
+
+\begin{slide}{Definition II}
+  \centering
+  \Large
+  Machine Learning is \emph{really} cool.
+\end{slide}
+
+% A machine learning algorithm is an algorithm that is able to learn from data
+\begin{slide}{Definition III}
+  \begin{quote}
+    \pause
+    Machine learning is not magic; it can't get something from nothing.
+    \pause
+    \vspace{0.5cm}\\
+    \begin{center}\textbf{What it does is get more from less.}\end{center}
+    \vspace{0.5cm}
+    \pause
+    Learning is like farming, which lets nature do most of the work.
+    Farmers combine seeds with nutrients to grow crops.
+    Learners combine knowledge with data to grow programs.
+  \end{quote}
+  \cite{domingos2012}
+\end{slide}
+
+\begin{slide}{Definition IV}
+\begin{quote}
+  A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$, if its performance at tasks in $T$, as measured by $P$, improves with experience $E$.
+\end{quote}
+\cite{mitchell1997}
+\end{slide}
+% Usually what we are doing in machine learning is trying to generate predictive models. For example, in image classification, given only a small amount of data, we want to produce or *learn* an algorithm that can predict the class of an image it has never seen before. In that sense, we know that in the space of all possible functions mapping images to classes (dog, cat, banana), there exists one optimal function f that maps images to their class perfectly. Our aim is to find or *learn* a function f^star with experience, with data and time, that best approximates f. And a performance measure $P$, such as the accuracy, so the number of correct predictions relative to all predictions, tells us how far or close we are from finding such a best approximation f star.
+
+\begin{slide}{Definition III}
+  $$f: \text{Image} \rightarrow \{\text{cat, banana, spaceship, \dots}\}$$
+  \vspace{0.5cm}
+  \pause
+  $$f^\star(x) \approx f(x)$$
+\end{slide}
+
+% Let's dive deeper into the possible tasks $T$
+% Machine Learning tasks are generally discriminated by how they process an example $x \in \mathbb{R}^n$.
+\begin{slide}{The Task, $T$}
+\begin{itemize}
+  \pause\item Discriminate by the way an algorithm processes an example $\textbf{x} \in \mathbb{R}^n$
+  \pause\item $\textbf{x}$ contains features, such as $(\text{lunch, dinner})$ % predicting how happy a person is based on what they had for lunch and dinner (very good metric)
+  \pause\item The output $\textbf{y}$ can take on various forms
+\end{itemize}
+\end{slide}
+
+\begin{slide}{The Task, $T$}
+  \begin{center}
+    {\Large
+    Classification}\\
+    \vspace{0.3cm}
+    $f: \mathbb{R}^n \rightarrow \{1, \dots, k\}$
+  \end{center}
+  \begin{itemize}
+    \pause\item Categorize an input $\textbf{x}$ into one of $k$ classes
+    \pause\item Image classification
+    \pause\item Recognizing handwritten digits
+    \pause\item Predictive Policing %Placing crime suspects into different threat levels based on crime history
+  \end{itemize}
+\end{slide}
+
+\begin{slide}{The Task, $T$}
+  \begin{center}
+    {\Large
+    Regression}\\
+    \vspace{0.3cm}
+    $f: \mathbb{R}^n \rightarrow \mathbb{R}$
+  \end{center}
+  \begin{itemize}
+    \pause\item Predict a scalar value given input features
+    \pause\item Algorithmic Trading % Predict future prices given the current and past state of the market. Generally anything that has to do with money.
+    \pause\item Predicting the market price of a house % Given its features of size, age, pool
+    \pause\item Predicting the amount of rain in a season
+  \end{itemize}
+\end{slide}
+
+\begin{slide}{The Task, $T$}
+  \begin{center}
+    {\Large
+    Transcription}\\
+    \vspace{0.3cm}
+    $f: \text{Language} \rightarrow \text{Text}$
+  \end{center}
+  \begin{itemize}
+    \pause\item Transform language from an unstructured representation into text
+    \pause\item Recognizing street addresses in Google Street View
+    \pause\item Transcribe speech into text
+    \pause\item Similar to \emph{Translation} % Transforming a sequence of symbols from one structured representation to another, such as English
+  \end{itemize}
+\end{slide}
+
+\begin{slide}{The Task, $T$}
+  \begin{center}{
+    \Large
+    Synthesis}\\
+    \vspace{0.3cm}
+    $f: \text{Stuff} \rightarrow \text{More Stuff}$
+  \end{center}
+  \begin{itemize}
+    \pause\item Generate new data similar to the input
+    \pause\item Reproduce patterns of the sky for video games
+    \pause\item Synthesize speech % This could be seen as a translation task, but with the important difference that there is no single correct solution. We expect and wish for a large, natural amount of variation in the data we are producing. Translation would require exact solutions -- i.e. there exists a concrete solution for each input (the correct translation). In synthesis, we have degrees of freedom to simulate randomness and realistic variation. E.g. use synonyms or slang or different grammatical structures (as long as they are correct).
+    \pause\item Generate more data to train our algorithm to generate more data to train our algorithm to generate more data to train our algorithm to generate more data to train our algorithm to generate more data \dots
+  \end{itemize}
+\end{slide}
+
+\begin{slide}{Experience $E$}
+  \centering
+  {\LARGE How do we make our algorithm learn?}\\
+  \vspace{1.3cm}
+  \large
+  \pause Unsupervised Learning % k-means clustering, synthesis tasks, no instructor, the algorithm must make sense of the data itself
+  \hspace{1cm}
+  \pause Supervised Learning % Most of deep learning, e.g. image classification; there is an instructor guiding the algorithm, labeling the input. The task of the algorithm is to understand what inputs produce what outputs.
+\end{slide}

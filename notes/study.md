@@ -118,3 +118,5 @@ We theoretically need to backprop through the time the entire sequence, but in p
 gradient clipping is also a way of hacking vanishing/exploding gradient. We compute the norm of the weights and when they get too large or small we just stop.
 
 show forgetting the past as wobbly past.
+
+good for video frames (sequences).

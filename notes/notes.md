@@ -9,6 +9,8 @@ The talk will generally be structured into two parts:
 
 The talk's name will be *"Introduction to Machine Learning with TensorFlow"*.
 
+-- First: show video of pianist (motivation)
+
 1. Table of Contents (Catents)
   * Theory Cat
   * Practice Cat
@@ -23,14 +25,6 @@ Only talk to the parts, don't give an explicit table of contents (describe what 
 ## Theory
 
 The theory: what is machine learning and what can you do with it.
-
-### Motivation
-
-Start out with showing some awesome applications of what you can do with ML today to give a strong motivation to listen to my talk. Should be non-obvious (i.e. not Google's autonomous driving). Theme:
-
-* Machines can see (e.g. Orcam)
-* Machines can read (maybe chatbots, Google Allo)
-* Machines can speak (e.g. Google Inbox)
 
 ### Defining stuff ~20 mins
 
