@@ -1,0 +1,751 @@
+% Convolutional Neural Networks
+
+\begin{slide}{Convolutional Neural Networks}
+  \begin{itemize}
+    \item<1-> Convolutional Neural Networks (CNNs; ConvNets) are used in image recognition
+    \item<2-> They assume their input are images
+  \end{itemize}
+  \vspace{0.2cm}
+  \only<1>{\vspace{3cm}}
+    \only<2>{
+    \includegraphics[scale=0.3]{llama}
+    }
+  \only<3>{
+  \begin{tikzpicture}
+    % Pixels
+      \foreach \x in {0, 0.25, ..., 3.75} {
+        \foreach \y in {0, 0.25, ..., 3.75} {
+          \randomcolor
+          \fill [randomcolor] (\x, \y) rectangle ++(0.25, 0.25);
+        }
+      }
+  \end{tikzpicture}
+  }
+  \only<4>{
+  \begin{tikzpicture}
+    % Pixels
+      \foreach \x in {0, 0.25, ..., 3.75} {
+        \foreach \y in {0, 0.25, ..., 3.75} {
+          \draw (\x, \y) rectangle ++(0.25, 0.25) node [midway] {\tiny\pdfuniformdeviate 100};
+        }
+      }
+  \end{tikzpicture}
+  }
+  \only<5->{
+  \begin{tikzpicture}
+    % R layer (feature map)
+    \onslide<8->{
+    \yzplane{0}{
+      \fill [ProcessBlue] (0, 0) rectangle ++(4, 4);
+    }
+    % \xyplane{0}{
+    %   \fill [ProcessBlue] (0, 0) rectangle ++(0.3, 4);
+    % }
+    % \xyplane{4}{
+    %   \fill [ProcessBlue] (0, 0) rectangle ++(0.3, 4);
+    % }
+    % \xzplane{0}{
+    %   \fill [ProcessBlue] (0, 0) rectangle ++(0.3, 4);
+    % }
+    % \xzplane{4}{
+    %   \fill [ProcessBlue] (0, 0) rectangle ++(0.3, 4);
+    % }
+    }
+
+    % G layer (feature map)
+    \onslide<7->{
+    \yzplane{0.6}{
+      \fill [Green] (0, 0) rectangle ++(4, 4);
+    }
+    % \yzplane{0.9}{
+    %   \fill [Green] (0, 0) rectangle ++(4, 4);
+    % }
+    % \xyplane{0}{
+    %   \fill [Green] (0.6, 0) rectangle ++(0.3, 4);
+    % }
+    % \xyplane{4}{
+    %   \fill [Green] (0.6, 0) rectangle ++(0.3, 4);
+    % }
+    % \xzplane{0}{
+    %   \fill [Green] (0.6, 0) rectangle ++(0.3, 4);
+    % }
+    % \xzplane{4}{
+    %   \fill [Green] (0.6, 0) rectangle ++(0.3, 4);
+    % }
+    }
+
+    % B layer (feature map)
+    \onslide<6->{
+    \yzplane{1.2}{
+      \fill [Red] (0, 0) rectangle ++(4, 4);
+    }
+    % \yzplane{1.5}{
+    %   \fill [Red] (0, 0) rectangle ++(4, 4);
+    % }
+    % \xyplane{0}{
+    %   \fill [Red] (1.2, 0) rectangle ++(0.3, 4);
+    % }
+    % \xyplane{4}{
+    %   \fill [Red] (1.2, 0) rectangle ++(0.3, 4);
+    % }
+    % \xzplane{0}{
+    %   \fill [Red] (1.2, 0) rectangle ++(0.3, 4);
+    % }
+    % \xzplane{4}{
+    %   \fill [Red] (1.2, 0) rectangle ++(0.3, 4);
+    % }
+    }
+
+    % Pixels
+    \yzplane{1.8}{
+      \foreach \y in {0, 0.25, ..., 3.75} {
+        \foreach \z in {0, 0.25, ..., 3.75} {
+          \randomcolor
+          \fill [randomcolor] (\y, \z) rectangle ++(0.25, 0.25);
+        }
+      }
+    }
+  \end{tikzpicture}
+  }
+\end{slide}
+
+\begin{slide}{Convolutional Neural Network}
+  \begin{itemize}
+    \item<1-> We want to classify images into one of $k$ classes
+    \item<2-> The model should learn to extract features
+    \item<3-> We expect it to exploit the hierarchical nature of the data
+    \begin{enumerate}
+      \item<4-> Lines and edges
+      \item<4-> Corners and contours
+      \item<4-> Abstract components (e.g. noses, ears, feet)
+      \item<4-> Entire objects (e.g. faces, spaceship)
+    \end{enumerate}
+    \item<5-> First idea: just feed the pixels into a neural network
+  \end{itemize}
+\end{slide}
+
+\begin{slide}{Convolutional Neural Network}
+  $$
+  \begin{sbmatrix}{R}
+    116 & 80 \\
+    170 & 194 \\
+  \end{sbmatrix}
+  \hspace{0.5cm}
+  \begin{sbmatrix}{G}
+    82 & 78 \\
+    5 & 236 \\
+  \end{sbmatrix}
+  \hspace{0.5cm}
+  \begin{sbmatrix}{B}
+    76 & 139 \\
+    245 & 236 \\
+  \end{sbmatrix}
+  $$
+  \pause
+  \texttt{concatenate(}$R$\texttt{.flatten, }$G$\texttt{.flatten, }$B$\texttt{.flatten}\texttt{)}
+\end{slide}
+
+\begin{slide}{Convolutional Neural Network}
+  $$
+  \begin{sbmatrix}{R}
+    116 & 80 \\
+    170 & 194 \\
+  \end{sbmatrix}
+  \hspace{0.5cm}
+  \begin{sbmatrix}{G}
+    82 & 78 \\
+    5 & 236 \\
+  \end{sbmatrix}
+  \hspace{0.5cm}
+  \begin{sbmatrix}{B}
+    76 & 139 \\
+    245 & 236 \\
+  \end{sbmatrix}
+  $$
+  \begin{align*}
+    R\mathtt{.flatten} &= \begin{bmatrix}116 & 80 & 170 & 194\end{bmatrix}
+  \end{align*}
+\end{slide}
+
+\begin{slide}{Convolutional Neural Network}
+  $$
+  \begin{sbmatrix}{R}
+    116 & 80 \\
+    170 & 194 \\
+  \end{sbmatrix}
+  \hspace{0.5cm}
+  \begin{sbmatrix}{G}
+    82 & 78 \\
+    5 & 236 \\
+  \end{sbmatrix}
+  \hspace{0.5cm}
+  \begin{sbmatrix}{B}
+    76 & 139 \\
+    245 & 236 \\
+  \end{sbmatrix}
+  $$
+  \begin{align*}
+    R\mathtt{.flatten} &= \begin{bmatrix}116 & 80 & 170 & 194\end{bmatrix}\\
+    G\mathtt{.flatten} &= \begin{bmatrix}82 & 78 & 5 & 236\end{bmatrix}
+  \end{align*}
+\end{slide}
+
+\begin{slide}{Convolutional Neural Network}
+  $$
+  \begin{sbmatrix}{R}
+    116 & 80 \\
+    170 & 194 \\
+  \end{sbmatrix}
+  \hspace{0.5cm}
+  \begin{sbmatrix}{G}
+    82 & 78 \\
+    5 & 236 \\
+  \end{sbmatrix}
+  \hspace{0.5cm}
+  \begin{sbmatrix}{B}
+    76 & 139 \\
+    245 & 236 \\
+  \end{sbmatrix}
+  $$
+  \begin{align*}
+    R\mathtt{.flatten} &= \begin{bmatrix}116 & 80 & 170 & 194\end{bmatrix}\\
+    G\mathtt{.flatten} &= \begin{bmatrix}82 & 78 & 5 & 236\end{bmatrix}\\
+    B\mathtt{.flatten} &= \begin{bmatrix}76 & 139 & 245 & 236\end{bmatrix}
+  \end{align*}
+\end{slide}
+
+\begin{slide}{Convolutional Neural Network}
+  $$
+  \begin{sbmatrix}{R}
+    116 & 80 \\
+    170 & 194 \\
+  \end{sbmatrix}
+  \hspace{0.5cm}
+  \begin{sbmatrix}{G}
+    82 & 78 \\
+    5 & 236 \\
+  \end{sbmatrix}
+  \hspace{0.5cm}
+  \begin{sbmatrix}{B}
+    76 & 139 \\
+    245 & 236 \\
+  \end{sbmatrix}
+  $$
+
+  \begin{align*}
+    R\mathtt{.flatten} &= \begin{bmatrix}116 & 80 & 170 & 194\end{bmatrix}\\
+    G\mathtt{.flatten} &= \begin{bmatrix}82 & 78 & 5 & 236\end{bmatrix}\\
+    B\mathtt{.flatten} &= \begin{bmatrix}76 & 139 & 245 & 236\end{bmatrix}
+  \end{align*}
+
+  $$\mathbf{x} = \begin{bmatrix}116,  80, 170, 194,  82,  78,   5, 236,  76, 139, 245, 236\end{bmatrix}$$
+\end{slide}
+
+\begin{slide}{Convolutional Neural Networks}
+  \begin{itemize}
+    \item Why is this a bad idea?
+    \begin{enumerate}
+      \pitem Fully connected NNs scale badly for images
+      \begin{itemize}
+        \pitem $200 \times 200 \times 3 = 120,000$ features
+        \pitem With 100 hidden units: $100 \times 120,000 = 12,000,000$
+        \pitem With 5 layers: $12,000,000 \times 5 = 60,000,000$ weights
+        \pitem $1000 \times 1000 \rightarrow 1,500,000,000$ weights
+      \end{itemize}
+      \pitem It assumes every pixel has entirely new information
+    \end{enumerate}
+  \end{itemize}
+\end{slide}
+
+\begin{slide}{Convolutional Neural Networks}
+  \only<1>{
+    \includegraphics[scale=0.15]{cat}
+
+    This is a cat $\varheart$
+  }
+  \only<2>{
+    \includegraphics[scale=0.2]{cat2}
+
+    Still a cat $\varheart\varheart$
+  }
+  \only<3>{
+    \includegraphics[scale=0.3]{cat4}
+
+    Half cat / half salad $\varheart\varheart\varheart$
+  }
+  \only<4>{
+    \includegraphics[scale=0.3]{cat3}
+
+    Minecraft cat $\varheart\varheart\varheart\varheart$
+  }
+\end{slide}
+
+% If the network learns to recgonize a feature in one layer
+% Maybe it's good to keep that information for somewehere else too
+
+\begin{slide}{Convolutional Neural Networks}
+  \begin{itemize}
+    \item Our network learns to detect a feature in one part of the image
+    \pitem Wouldn't it make sense to reuse that information?
+    % If the network learns to recognize a horizontal edge in the top left corner, then we want it to reuse that information elsewhere
+    % Otherwise the neurons of each layer would need to re-learn that information
+    \pitem Yes!
+  \end{itemize}
+  \vspace{0.5cm}
+  {
+    \Large
+    Weight Sharing
+  }
+\end{slide}
+
+\begin{slide}{Convolutional Neural Network: Mechanics}
+  \frameheader{Recipe for a Convolutional Neural Network}
+  \begin{itemize}
+    \item<2-> Ingredients
+    \begin{enumerate}
+      \item<3-> Image $I$ with dimension $w \times h \times d$
+      \item<4-> A kernel (filter) $K$ of size $k \times k \times d$
+    \end{enumerate}
+    \item<5-> Cooking
+    \begin{itemize}
+      \item<6-> \only<6>{Put the image into the oven at 150\degree C}\only<7->{Don't put the image into the oven at 150\degree C}
+      \item<8-> Slide the kernel across the image
+      \item<9-> Compute the ``dot product'' for each configuration
+      \item<10-> (This is a convolution $I \ast K$)
+    \end{itemize}
+  \end{itemize}
+\end{slide}
+
+% \begin{slide}{Digression: Convolutions}
+%   \begin{itemize}
+%     \item<1-> Convolution is a mathematical operation
+%     \item<2-> Used a lot in signal processing
+%   \end{itemize}
+%
+%   \onslide<3->{
+%     \begin{tikzpicture}
+%       % x axis
+%       \draw [->] (0, 0) -- (8.5, 0) node [below left] {$t$};
+%
+%       % y axis
+%       \draw [->] (0, 0) -- (0, 2.5) node [below left] {$s(t)$};
+%
+%       % x Ticks
+%       \foreach \i in {0, 1, ..., 7} {
+%         \draw ({\i+0.5}, -0.1) node [below] {$\i$} -- ({\i+0.5}, 0);
+%       }
+%
+%       % y Ticks
+%       \foreach \i in {0, 1} {
+%         \draw (-0.1, {\i+0.5}) node [left] {$\i$} -- (+0.1, {\i+0.5});
+%       }
+%
+%       % Signal
+%       \foreach \x in {0.5, 1, ..., 8} {
+%         \draw [ProcessBlue] (\x, 0) -- (\x, {((rand+1)/2)*1.5});
+%       }
+%     \end{tikzpicture}
+%   }
+%   \onslide<4->{
+%   \begin{tikzpicture}
+%     % x axis
+%     \draw [->] (0, 0) -- (2.3, 0) node [below left] {$t$};
+%
+%     % y axis
+%     \draw [->] (0, 0) -- (0, 2.5) node [below left] {$k(t)$};
+%
+%     % x Ticks
+%     \foreach \i in {0, 1, ..., 1.5} {
+%       \draw ({\i+0.5}, -0.1) node [below] {$\i$} -- ({\i+0.5}, 0);
+%     }
+%
+%     % y Ticks
+%     \foreach \i in {0, 1} {
+%       \draw (-0.1, {\i+0.5}) node [left] {$\i$} -- (+0.1, {\i+0.5});
+%     }
+%
+%     % Signal
+%     \foreach \x in {0.5, 1, ..., 1.5} {
+%       \draw [Red] (\x, 0) -- (\x, {2-\x});
+%     }
+%   \end{tikzpicture}
+%   }
+% \end{slide}
+
+\begin{slide}{Convolutional Neural Network: Mechanics}
+  \begin{tikzpicture}
+    % Image
+    \draw (0, 0) grid ++(3, 3);
+
+    % Grayscale pixel values
+    \only<1>{
+      \foreach \x in {0, ..., 2} {
+        \foreach \y in {0, ..., 2} {
+          \randomgray
+          \fill [randomgray] (\x, \y) rectangle ++(1, 1);
+        }
+      }
+    }
+
+    \only<2-3>{
+    \draw (0.5, 0.5) node {$0.8$};
+    \draw (1.5, 0.5) node {$0.3$};
+    \draw (2.5, 0.5) node {$0.5$};
+    \draw (0.5, 1.5) node {$0.7$};
+    \draw (1.5, 1.5) node {$0.2$};
+    \draw (2.5, 1.5) node {$0.6$};
+    \draw (0.5, 2.5) node {$0.4$};
+    \draw (1.5, 2.5) node {$0.9$};
+    \draw (2.5, 2.5) node {$0.1$};
+    }
+
+    \draw (1.5, -0.5) node {Image};
+
+    \only<3-3>{
+    \draw (4, 0) grid ++(2, 2);
+
+    \draw (4.5, 0.5) node {$3.1$};
+    \draw (5.5, 0.5) node {$0.9$};
+    \draw (4.5, 1.5) node {$5.7$};
+    \draw (5.5, 1.5) node {$2.4$};
+
+    \draw (5, -0.5) node {Kernel};
+    }
+
+    \only<4-5>{
+      \draw (0.5, 0.5) node {$0.8$};
+      \draw (1.5, 0.5) node {$0.3$};
+      \draw (2.5, 0.5) node {$0.5$};
+      \draw (0.5, 1.5) node {\tiny$3.1 \cdot 0.7$};
+      \draw (1.5, 1.5) node {\tiny$0.9 \cdot 0.2$};
+      \draw (2.5, 1.5) node {$0.6$};
+      \draw (0.5, 2.5) node {\tiny$5.7 \cdot 0.4$};
+      \draw (1.5, 2.5) node {\tiny$2.4 \cdot 0.9$};
+      \draw (2.5, 2.5) node {$0.1$};
+
+      \draw [red] (0, 1) grid (2, 3);
+    }
+    \only<5-> {
+      \draw [red] (4, 1) rectangle ++(1, 1) node [midway, black] {$6.79$};
+      \draw (5, -0.5) node {Output};
+    }
+    \only<6-7>{
+    \draw (0.5, 0.5) node {$0.8$};
+    \draw (1.5, 0.5) node {$0.3$};
+    \draw (2.5, 0.5) node {$0.5$};
+    \draw (0.5, 1.5) node {$0.7$};
+    \draw (1.5, 1.5) node {\tiny$3.1 \cdot 0.2$};
+    \draw (2.5, 1.5) node {\tiny$0.9 \cdot 0.6$};
+    \draw (0.5, 2.5) node {$0.4$};
+    \draw (1.5, 2.5) node {\tiny$5.7 \cdot 0.9$};
+    \draw (2.5, 2.5) node {\tiny$2.4 \cdot 0.1$};
+
+      \draw [ProcessBlue] (1, 1) grid (3, 3);
+    }
+    \only<7-> {
+      \draw [ProcessBlue] (5, 1) rectangle ++(1, 1) node [black, midway] {$6.53$};
+    }
+    \only<8-9>{
+    \draw (0.5, 0.5) node {\tiny$3.1 \cdot 0.8$};
+    \draw (1.5, 0.5) node {\tiny$0.9 \cdot 0.3$};
+    \draw (2.5, 0.5) node {$0.5$};
+    \draw (0.5, 1.5) node {\tiny$5.7 \cdot 0.7$};
+    \draw (1.5, 1.5) node {\tiny$2.4 \cdot 0.2$};
+    \draw (2.5, 1.5) node {$0.6$};
+    \draw (0.5, 2.5) node {$0.4$};
+    \draw (1.5, 2.5) node {$0.9$};
+    \draw (2.5, 2.5) node {$0.1$};
+
+      \draw [LimeGreen] (0, 0) grid (2, 2);
+    }
+    \only<9-> {
+      \draw [LimeGreen] (4, 0) rectangle ++(1, 1) node [black, midway] {$7.67$};
+    }
+    \only<10-11>{
+    \draw (0.5, 0.5) node {$0.8$};
+    \draw (1.5, 0.5) node {\tiny$3.1 \cdot 0.3$};
+    \draw (2.5, 0.5) node {\tiny$0.9 \cdot 0.5$};
+    \draw (0.5, 1.5) node {$0.7$};
+    \draw (1.5, 1.5) node {\tiny$5.7 \cdot 0.2$};
+    \draw (2.5, 1.5) node {\tiny$2.4 \cdot 0.6$};
+    \draw (0.5, 2.5) node {$0.4$};
+    \draw (1.5, 2.5) node {$0.9$};
+    \draw (2.5, 2.5) node {$0.1$};
+
+      \draw [Magenta] (1, 0) grid (3, 2);
+    }
+    \only<11-> {
+      \draw [Magenta] (5, 0) rectangle ++(1, 1) node [black, midway] {$3.96$};
+    }
+  \end{tikzpicture}
+\end{slide}
+
+\begin{slide}{Convolutional Neural Networks: Mechanics}
+  \begin{tikzpicture}
+    % R layer (feature map)
+    \yzplane{0}{
+      \draw [ProcessBlue] (0, 0) rectangle ++(4, 4);
+    }
+    \xyplane{4}{
+      \draw [ProcessBlue] (0, 0) rectangle ++(0.4, 4);
+    }
+    \xzplane{0}{
+      \draw [ProcessBlue] (0, 0) rectangle ++(0.4, 4);
+    }
+    \xzplane{4}{
+      \draw [ProcessBlue] (0, 0) rectangle ++(0.4, 4);
+    }
+
+    % G layer (feature map)
+    \yzplane{0.4}{
+      \draw [Green] (0, 0) rectangle ++(4, 4);
+    }
+    \xyplane{0}{
+      \draw [Green] (0.4, 0) rectangle ++(0.4, 4);
+    }
+    \xyplane{4}{
+      \draw [Green] (0.4, 0) rectangle ++(0.4, 4);
+    }
+    \xzplane{0}{
+      \draw [Green] (0.4, 0) rectangle ++(0.4, 4);
+    }
+    \xzplane{4}{
+      \draw [Green] (0.4, 0) rectangle ++(0.4, 4);
+    }
+
+    % B layer (feature map)
+    \yzplane{0.8}{
+      \draw [Red] (0, 0) rectangle ++(4, 4);
+    }
+    \xyplane{0}{
+      \draw [Red] (0.8, 0) rectangle ++(0.4, 4);
+    }
+    \xyplane{4}{
+      \draw [Red] (0.8, 0) rectangle ++(0.4, 4);
+    }
+    \xzplane{0}{
+      \draw [Red] (0.8, 0) rectangle ++(0.4, 4);
+    }
+    \xzplane{4}{
+      \draw [Red] (0.8, 0) rectangle ++(0.4, 4);
+    }
+
+    \foreach \i/\j in {0/1, 0.4/2, 0.8/3, 1.2/4, 1.6/5, 2.0/6, 2.4/7, 2.8/8} {
+    \only<\j>{
+      \xyplane{\i}{
+        \draw (0, 2.79) grid [step=0.4] ++(1.2, 1.21);
+      }
+      \xyplane{{\i+1.2}}{
+        \draw (0, 2.79) grid [step=0.4] ++(1.2, 1.21);
+      }
+      \yzplane{0}{
+        \draw (2.79, \i) grid [step=0.4] ++(1.21, 1.21);
+      }
+      \yzplane{1.2}{
+        \draw (2.79, \i) grid [step=0.4] ++(1.21, 1.21);
+      }
+      \xzplane{4}{
+        \draw (0, \i) grid [step=0.4] ++(1.21, 1.21);
+      }
+      \xzplane{2.8}{
+        \draw (0, \i) grid [step=0.4] ++(1.21, 1.21);
+      }
+    }
+    }
+  \end{tikzpicture}
+\end{slide}
+
+\begin{slide}{Convolutional Neural Network: Mechanics}
+  \begin{tikzpicture}
+    \yzplane{0}{
+      \foreach \y in {0, ..., 2} {
+        \foreach \z in {0, ..., 2} {
+          % \randomcolor
+          % \fill [randomcolor] (\y, \z) rectangle ++(1, 1);
+          \draw (\y, \z) rectangle ++(1, 1);
+        }
+      }
+    }
+
+    \newcount\slidecount\relax
+    \slidecount=2\relax
+    \foreach \i in {0, 1} {
+      \foreach \j in {0, 1} {
+        \only<\the\slidecount> {
+          \path (2, {2.5-\i}, {2-\j*2})
+                coordinate [draw, circle, inner sep=7pt]
+                (h\j\i) node {$h$};
+
+          \draw [->] (0, {2.5-\i}, {2.5-\j})
+             .. controls (0.75, {2.9-\i}, {2.5-\j}) .. (h\j\i)
+             node [pos=0.6, above right, sloped] {\tiny$w_{0,1}$};
+
+          \draw [->] (0, {2.5-\i}, {1.5-\j})
+             .. controls (0.75, {3.1-\i}, {2.5-\j}) .. (h\j\i)
+             node [pos=0.8, below] {\tiny$w_{0,0}$};
+
+          \draw [->] (0, {1.5-\i}, {2.5-\j})
+            .. controls (1.25, {1.5-\i}, {2.5-\j}) .. (h\j\i)
+             node [pos=0.5, below, sloped] {\tiny$w_{1,0}$};
+
+          \draw [->] (0, {1.5-\i}, {1.5-\j})
+            .. controls (1.25, {1.8-\i}, {2.5-\j}) .. (h\j\i)
+             node [pos=0.6, above, sloped] {\tiny$w_{1,1}$};
+        }
+        \global\advance\slidecount by 1\relax
+      }
+    }
+
+  \end{tikzpicture}
+  % Most importantly, we'd most often have many kernels for each layer
+  % So if the input layer has k feature maps, the output layer will have x feature maps
+\end{slide}
+
+\begin{slide}{Convolutional Neural Network: Hyperparameters}
+  \begin{itemize}
+    \item<1-> Convolutional Neural Networks have three hyperparameters
+    \begin{enumerate}
+      \item<2-> Kernel size % usually odd for valid padding, 3x3 or 5x5
+      \item<3-> Kernel stride % usually 1 or 2
+      \item<4-> Padding (valid or same)
+      % Valid we don't go past th edge, so the spatial dimension will reduce
+      % Same padding we do go past the edge and pad the image with zeros
+      % then the spatial dimension will stay the same (most common)
+    \end{enumerate}
+  \end{itemize}
+  \vspace{1cm}
+
+  \onslide<4->{
+    \begin{tikzpicture}
+      \draw (0, 0) grid [step=0.5] (2, 2);
+      \foreach \i/\s in {0/5, 0.5/6} {
+        \only<\s>{
+          \fill [red] (\i, 0.5) rectangle ++(1.5, 1.5);
+          \draw (\i, 0.5) grid [step=0.5] ++(1.5, 1.5);
+        }
+      }
+      \newcommand{\drawzeros}{
+        \foreach \i in {0, 0.5, ..., 1.5} {
+          \draw (\i, -0.5) rectangle ++(0.5, 0.5) node [midway] {0};
+          \draw (-0.5, \i) rectangle ++(0.5, 0.5) node [midway] {0};
+          \draw (\i, 2) rectangle ++(0.5, 0.5) node [midway] {0};
+          \draw (2, \i) rectangle ++(0.5, 0.5) node [midway] {0};
+        }
+        \foreach \i in {-0.5, 2} {
+          \draw (\i, -0.5) rectangle ++(0.5, 0.5) node [midway] {0};
+          \draw (\i, 2) rectangle ++(0.5, 0.5) node [midway] {0};
+        }
+      }
+      \only<7-> {
+        \drawzeros
+      }
+      \foreach \i/\s in {-0.5/8, 0/9, 0.5/10, 1/11} {
+        \only<\s>{
+          \fill [red] (\i, 1) rectangle ++(1.5, 1.5);
+          \draw ({\i+0.5}, 1.5) rectangle ++(0.5, 0.5) node [midway] {$\times$};
+          \draw (\i, 1) grid [step=0.5] ++(1.5, 1.5);
+          \drawzeros
+        }
+      }
+    \end{tikzpicture}
+  }
+\end{slide}
+
+\begin{frame}[fragile]{Convolutional Neural Networks: Pooling}
+  \begin{itemize}
+    \item<1-> \emph{Pooling} achieves translational invariance
+    \item<2-> A form of downsampling
+    \item<3-> The maximum stays the maximum
+    % Pooling reduces the width and height, convolutions modify the depth
+  \end{itemize}
+  \vspace{0.5cm}
+
+  \begin{center}
+  \begin{tikzpicture}
+    \newcommand{\numbergrid}[4]{%
+      \draw (0, 0) rectangle ++(1, 1) node [midway] {#1};%
+      \draw (1, 0) rectangle ++(1, 1) node [midway] {#2};%
+      \draw (0, 1) rectangle ++(1, 1) node [midway] {#3};%
+      \draw (1, 1) rectangle ++(1, 1) node [midway] {#4};%
+    }
+    \only<3> {\numbergrid{6}{32}{66}{2}}
+    \only<4> {\numbergrid{66}{32}{6}{2}}
+    \only<5> {\numbergrid{6}{32}{2}{66}}
+    \only<6> {\numbergrid{2}{66}{32}{6}}
+  \end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{slide}{Convolutional Neural Network: Architecture}
+  \texttt{INPUT ->}
+
+  \texttt{[[CONV -> RELU]*N -> POOL?]*M ->}
+
+  \texttt{[FC -> RELU]*K -> FC}
+
+  \begin{flushleft}\cite{karpathy1}\end{flushleft}
+\end{slide}
+
+\begin{slide}{Convolutional Neural Networks: Intuition}
+  \begin{itemize}
+    \pitem Each layer of a ConvNet learns to detect features
+    \pitem Later layers combine features of earlier layers
+    \pitem For early layers, we can still gain an intuition of what they do
+  \end{itemize}
+\end{slide}
+
+\begin{slide}{Convolutional Neural Networks: Intuition}
+  \frameheader{What's in a kernel?}
+
+  \begin{tikzpicture}
+    \draw (0, 0) grid ++(3, 3);
+    \foreach \i in {0, ..., 2} {
+      \foreach \j in {0, ..., 2} {
+        \ifnum\i=1
+          \draw ({\i+0.5}, {\j+0.5}) node {1};
+        \else
+          \draw ({\i+0.5}, {\j+0.5}) node {0};
+        \fi
+      }
+    }
+
+      \draw (1.5, -0.7) node {Patterns};
+      % 1. patterns
+      % other things
+  \end{tikzpicture}
+\end{slide}
+
+\begin{slide}{Convolutional Neural Networks: Intuition}
+  \frameheader{What's in a kernel?}
+
+  \begin{tikzpicture}
+    \draw (0, 0) grid ++(3, 3);
+    \foreach \i in {0, ..., 2} {
+      \foreach \j in {0, ..., 2} {
+        \ifnum\j=1
+          \ifnum\i=0
+            \draw ({\i+0.5}, {\j+0.5}) node {-1};
+          \else
+            \ifnum\i=1
+              \draw ({\i+0.5}, {\j+0.5}) node {1};
+            \else
+              \draw ({\i+0.5}, {\j+0.5}) node {0};
+            \fi
+          \fi
+        \else
+          \draw ({\i+0.5}, {\j+0.5}) node {0};
+        \fi
+      }
+    }
+
+      % When the two pixels are similar, the two values cancel
+      % When they are differnt (near edges), they give a large value
+      \draw (1.5, -0.7) node {Features};
+      % 1. patterns
+      % other things
+  \end{tikzpicture}
+\end{slide}
+
+\begin{slide}{Convolutional Neural Networks: Intuition}
+  \includegraphics[scale=0.45]{weights}
+\end{slide}

@@ -1,1 +1,234 @@
 % Deep Learning
+
+\textframe{Time to go Deeper}
+
+\begin{frame}
+  \begin{quote}
+    What if the meaning of life is to spend your time thinking about the meaning of life?
+  \end{quote}
+\end{frame}
+
+\begin{frame}
+  \centering
+  {
+    \Huge
+    \color{orange}
+    Deep Learning
+    \vspace{0.5cm}
+  }
+
+  {
+  \Large
+  \pause The why\pause, the what\pause{} and the ugly
+  }
+\end{frame}
+
+\begin{slide}{Deep Learning}
+  \includegraphics[scale=0.3]{dl-trend}
+\end{slide}
+
+\begin{slide}{Deep Learning}
+  \frameheader{Basic Definition}
+
+  \begin{itemize}
+    \pitem Let $\mathcal{L}$ denote the number of hidden layers in a neural network
+    \pitem Then we call neural network \emph{deep}, if
+    \begin{enumerate}
+      \pitem It is trained at more than 10,000m below sea level, or
+      \pitem $\mathcal{L} > 1$
+    \end{enumerate}
+    \pitem To really understand why many layers are a good idea, we must understand why few layers might be a bad idea
+  \end{itemize}
+\end{slide}
+
+\begin{slide}{Universal Approximation Theorem}
+  \begin{itemize}
+    \pitem Theoretically, a single layer is just enough
+    \pitem However, we would need exponentially many units for discrete functions
+    \pitem And infinitely many for continuous functions
+    \pitem Just use an infinitely sized hash table
+
+    % Say this, don't put it on the slides!
+    % \pitem Unfortunately, infinity does not scale well
+    % \pitem Even with Hadoop
+    % \pitem Example:
+    % \begin{itemize}
+    %   \pitem If we have five boolean inputs, each can take on two states
+    %   \pitem In total, that gives $2^5 = 32$ possible input configurations
+    %   \pitem Just make the hidden layer a lookup table with 32 entries
+    %   \pitem Each fires for one configuration and yields the corresponding output
+    %   \pitem Profit
+    % \end{itemize}
+  \end{itemize}
+\end{slide}
+
+\begin{slide}{The Curse of Dimensionality}
+  \begin{itemize}
+    \item<2-> The number of possible outputs scales exponentially with the dimensionality of our dataset
+    \item<3-> Assume our features have 10 possible values
+  \end{itemize}
+  \only<-3>{\vspace{2cm}}
+  \only<4-9>{
+  \vspace{1cm}
+  \begin{tikzpicture}
+    \foreach \i in {0, ..., 4} {
+      \draw ({\i*0.4}, 0) rectangle ++(0.4, 0.4);
+      \draw ({-(\i + 1)*0.4}, 0) rectangle ++(0.4, 0.4);
+    }
+
+    % During training we are filling out these spaces
+    % 50% trained!
+    \only<5-9>{\draw [fill=red] (0, 0) rectangle ++(0.4, 0.4);}
+    \only<6-9>{\draw [fill=cyan] (0.8, 0) rectangle ++(0.4, 0.4);}
+    \only<7-9>{\draw [fill=orange] (-1.2, 0) rectangle ++(0.4, 0.4);}
+    \only<8-9>{\draw [fill=purple] (1.2, 0) rectangle ++(0.4, 0.4);}
+    \only<9-9>{\draw [fill=Green] (-2, 0) rectangle ++(0.4, 0.4);}
+
+    \draw (0, -0.5) node {$1 \text{ feature } = 10 \text{ outputs }$};
+  \end{tikzpicture}
+  }
+  \only<10-15>{
+  \vspace{0.5cm}
+  \begin{tikzpicture}
+    \foreach \x in {0, ..., 9} {
+      \foreach \y in {0, ..., 9} {
+        \draw ({\x*0.4}, {\y*0.4}) rectangle ++(0.4, 0.4);
+      }
+    }
+
+    % During training we are filling out these spaces
+    % 50% trained!
+    \only<11-15>{\draw [fill=red] (0, 0) rectangle ++(0.4, 0.4);}
+    \only<12-15>{\draw [fill=cyan] (2.4, 2.4) rectangle ++(0.4, 0.4);}
+    \only<13-15>{\draw [fill=orange] (3.2, 1.6) rectangle ++(0.4, 0.4);}
+    \only<14-15>{\draw [fill=purple] (1.2, 3.6) rectangle ++(0.4, 0.4);}
+    \only<15-15>{\draw [fill=Green] (1.6, 1.2) rectangle ++(0.4, 0.4);}
+
+    \draw (2, -0.5) node {$2 \text{ features } = 100 \text{ outputs }$};
+  \end{tikzpicture}
+  }
+  \only<16->{
+  \vspace{0.2cm}
+  \begin{tikzpicture}
+    % \foreach \x in {0, ..., 9} {
+    %   \foreach \y in {0,...,  9} {
+    %     \foreach \z in {0,...,  9} {
+    \foreach \x in {0, 9} {
+      \foreach \y in {0, 9} {
+        \foreach \z in {0,  9} {
+        \begin{scope}[canvas is yx plane at z={\z*0.4}]
+          \draw [help lines] ({\x*0.4}, {\y*0.4}) rectangle ++(0.4, 0.4);
+        \end{scope}
+        \begin{scope}[canvas is zx plane at y={\y*0.4}]
+          \draw [help lines] ({\x*0.4}, {\z*0.4}) rectangle ++(0.4, 0.4);
+        \end{scope}
+        \begin{scope}[canvas is yz plane at x={\x*0.4}]
+          \draw [help lines] ({\y*0.4}, {\z*0.4}) rectangle ++(0.4, 0.4);
+        \end{scope}
+        \ifnum\x=9
+          \begin{scope}[canvas is yz plane at x=4]
+            \draw [help lines] ({\y*0.4}, {\z*0.4}) rectangle ++(0.4, 0.4);
+          \end{scope}
+          \begin{scope}[canvas is xy plane at z=0]
+            \draw [help lines] ({\y*0.4}, {\z*0.4}) rectangle ++(0.4, 0.4);
+          \end{scope}
+        \fi
+        }
+      }
+    }
+
+    \draw (5, 1.5, 0)
+          node [rotate=90] {$3 \text{ features } = 100 \text{ outputs }$};
+  \end{tikzpicture}
+  }
+\end{slide}
+
+\begin{slide}{The Curse of Dimensionality}
+  \begin{itemize}
+    \item Why is this a problem?
+    \pitem To predict an output, we must have seen at least one example  % to say if a picture contains a dog, we must know what a dog looks like
+    \pitem In high dimensions, an algorithm cannot possibly be trained on all possible output\pause, unless
+  \end{itemize}
+  \vspace{0.5cm}
+  \pause
+  {\LARGE We make assumptions about our data}
+\end{slide}
+
+\begin{slide}{The Curse of Dimensionality}
+  \begin{itemize}
+    \item<1-> Assumptions either
+    \begin{itemize}
+      % When mapping images to 10-letter captions, not all 10-letter strings will be valid outputs. So we have reduced the output space
+      \item<2-> Explicitly reduce the output space, or
+      \item<3-> Create dependencies between outputs
+    \end{itemize}
+    \item<4-> \emph{Local constancy} assumption (prior) $$f^\star(\mathbf{x})
+     \approx f^\star(\mathbf{x} + \varepsilon)$$
+     % The pixels might not quite correspond to this race of dog, but it's still similar to it, so we call it a dog (unless we have better examples)
+    \item<7-> Don't need as much data any more!
+  \end{itemize}
+  \onslide<5->{
+  \vspace{0.5cm}
+  \begin{tikzpicture}
+    \foreach \i in {0, ..., 4} {
+      \draw ({\i*0.4}, 0) rectangle ++(0.4, 0.4);
+      \draw ({-(\i + 1)*0.4}, 0) rectangle ++(0.4, 0.4);
+    }
+
+    % During training we are filling out these spaces
+    % 50% trained!
+    \draw [fill=red] (0, 0) rectangle ++(0.4, 0.4);
+    \draw [fill=cyan] (1.6, 0) rectangle ++(0.4, 0.4);
+    \draw [fill=orange] (-1.2, 0) rectangle ++(0.4, 0.4);
+
+    % \only<8-9>{\draw [fill=purple] (1.2, 0) rectangle ++(0.4, 0.4);}
+    % \only<9-9>{\draw [fill=Green] (-2, 0) rectangle ++(0.4, 0.4);}
+
+    % Dependencies
+    \only<6->{
+      \draw (0.4, 0) rectangle ++(0.4, 0.4) node [red, midway] {$\varepsilon$};
+      \draw (-0.4, 0) rectangle ++(0.4, 0.4) node [red, midway] {$\varepsilon$};
+    }
+  \end{tikzpicture}
+  }
+\end{slide}
+
+\begin{slide}{The Curse of Dimensionality}
+  {\Large
+    Deep Learning assumes that data is structured\\
+
+    \onslide<2->{
+      \vspace{0.5cm}
+      {\Huge  hierarchically}
+    }
+  }
+  \vspace{1cm}
+
+  \onslide<3-> {
+    \footnotesize
+    Note:\\
+    According to the \emph{No Free Lunch Theorem} it is just as bad as flipping a coin.
+  }
+\end{slide}
+
+\input{slides/convnet.tex}
+\input{slides/lstm.tex}
+
+\begin{slide}{Deep Learning}
+  \begin{itemize}
+    \pitem Why the recent success of deep learning? %Why did it take so long for deep learning to take off?
+    \pitem Three reasons
+    \begin{enumerate}
+      \pitem Better hardware
+      \pitem More data
+      \pitem Better methods
+    \end{enumerate}
+  \end{itemize}
+\end{slide}
+
+\begin{slide}{Deep Learning}
+  {
+    \Huge
+    The Ugly
+  }
+\end{slide}
