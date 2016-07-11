@@ -110,12 +110,12 @@
   \only<16->{
   \vspace{0.2cm}
   \begin{tikzpicture}
-    % \foreach \x in {0, ..., 9} {
-    %   \foreach \y in {0,...,  9} {
-    %     \foreach \z in {0,...,  9} {
-    \foreach \x in {0, 9} {
-      \foreach \y in {0, 9} {
-        \foreach \z in {0,  9} {
+    \foreach \x in {0, ..., 9} {
+      \foreach \y in {0,...,  9} {
+        \foreach \z in {0,...,  9} {
+    % \foreach \x in {0, 9} {
+    %   \foreach \y in {0, 9} {
+    %     \foreach \z in {0,  9} {
         \begin{scope}[canvas is yx plane at z={\z*0.4}]
           \draw [help lines] ({\x*0.4}, {\y*0.4}) rectangle ++(0.4, 0.4);
         \end{scope}

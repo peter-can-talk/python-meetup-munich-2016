@@ -1,3 +1,6 @@
 [submodule "presentation/tensorflow-paper"]
 	path = presentation/tensorflow-paper
 	url = https://github.com/peter-can-write/tensorflow-paper
+[submodule "code/fizz-buzz-tensorflow"]
+	path = code/fizz-buzz-tensorflow
+	url = https://github.com/joelgrus/fizz-buzz-tensorflow

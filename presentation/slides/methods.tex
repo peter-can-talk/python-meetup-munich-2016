@@ -519,7 +519,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
     % No ticks, because we have no units
 
     % Loss function
-    \draw [domain=-2.4:3.15, samples=200] plot (\x, {-0.05*\x^7 + 0.15*\x^6 + 0.25*\x^5 - 0.7*\x^4 - 0.35*\x^3 + 0.5*\x^2 + 0.55*\x + 1.55});
+    \draw [domain=-2.4:3.1, samples=200] plot (\x, {-0.05*\x^7 + 0.15*\x^6 + 0.25*\x^5 - 0.7*\x^4 - 0.35*\x^3 + 0.5*\x^2 + 0.55*\x + 1.55});
 
     % Grid
     % \draw [help lines] (-2.5, -0.5) grid (5, 5);
@@ -641,8 +641,8 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
     \pitem Parameters should not specialize too much to training data
     \pitem \emph{Regularization} is the art of finding a tradeoff between
     \begin{itemize}
-      \pitem training error
-      \item generalization error
+      \pitem Training error
+      \item Generalization error
     \end{itemize}
     \pitem We try to influence a model's \emph{capacity}
   \end{itemize}
@@ -738,7 +738,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
     \draw [help lines] (-0.5, 0) grid (3.5, 3.8);
 
     % Function
-    \draw [domain=0:3, samples=100, dotted] plot (\x, {f(\x)});
+    \draw [domain=0.1:3, samples=100, dotted] plot (\x, {f(\x)});
 
     % Some test points
     \path [red] (1, {f(1)}) coordinate [fill, circle, inner sep=1pt] (a);
@@ -784,7 +784,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
       \fill [black] (\x, {f(\x) + rand*0.5 + 0.05}) circle [radius=1pt];
     }
 
-    % \draw [domain=0:3.5, samples=800, /pgf/fpu,/pgf/fpu/output format=fixed] plot (\x, {-0.6904015551*\x^8 + 10.89843224*\x^7 - 69.51522312*\x^6 + 229.1182621*\x^5 - 413.7646904*\x^4 + 399.5064624*\x^3 - 185.9487975*\x^2 + 33.50595212*\x + 7.169728633*10^-8});
+    \draw [domain=0:2.8, samples=800, /pgf/fpu,/pgf/fpu/output format=fixed] plot (\x, {-0.6904015551*\x^8 + 10.89843224*\x^7 - 69.51522312*\x^6 + 229.1182621*\x^5 - 413.7646904*\x^4 + 399.5064624*\x^3 - 185.9487975*\x^2 + 33.50595212*\x + 7.169728633*10^-8});
   \end{tikzpicture}
 
   Overfitting (too high capacity)

@@ -1,0 +1,34 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+division	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^from __future__ import division$/;"	namespace	line:7
+print_function	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^from __future__ import print_function$/;"	namespace	line:8
+np	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^import numpy as np$/;"	namespace	line:10
+tf	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^import tensorflow as tf$/;"	namespace	line:11
+namedtuple	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^from collections import namedtuple$/;"	namespace	line:13
+Layer	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^Layer = namedtuple('Layer', 'weights, bias')$/;"	variable	line:16
+Data	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^Data = namedtuple('Data', 'examples, labels')$/;"	variable	line:17
+FizzBuzzer	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^class FizzBuzzer(object):$/;"	class	line:20
+CLASSES	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    CLASSES = 4$/;"	variable	line:22	class:FizzBuzzer
+__init__	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def __init__(self, digits, hidden_units=100, batch_size=128):$/;"	member	line:24	class:FizzBuzzer
+predict	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def predict(self, number):$/;"	member	line:51	class:FizzBuzzer
+train	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def train(self):$/;"	member	line:71	class:FizzBuzzer
+setup_graph	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def setup_graph(self):$/;"	member	line:81	class:FizzBuzzer
+propagate	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def propagate(self, data, layer, activation=None):$/;"	member	line:112	class:FizzBuzzer
+generate_training_data	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def generate_training_data(self, digits):$/;"	member	line:128	class:FizzBuzzer
+preprocess	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def preprocess(self, number):$/;"	member	line:147	class:FizzBuzzer
+binary_encode	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def binary_encode(self, number, digits):$/;"	member	line:162	class:FizzBuzzer
+__repr__	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def __repr__(self):$/;"	member	line:179	class:FizzBuzzer	file:
+__enter__	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def __enter__(self):$/;"	member	line:183	class:FizzBuzzer	file:
+__exit__	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def __exit__(self, exc_type, exc_value, traceback):$/;"	member	line:190	class:FizzBuzzer	file:
+decode	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def decode(number, prediction):$/;"	member	line:197	class:FizzBuzzer
+sample_batch	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def sample_batch(data, size):$/;"	member	line:209	class:FizzBuzzer
+compute_accuracy	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def compute_accuracy(p, q):$/;"	member	line:221	class:FizzBuzzer
+cross_entropy	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def cross_entropy(p, q):$/;"	member	line:233	class:FizzBuzzer
+create_layer	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def create_layer(input_units, output_units):$/;"	member	line:245	class:FizzBuzzer
+create_weights	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def create_weights(shape):$/;"	member	line:259	class:FizzBuzzer
+fizz_buzz_encode	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def fizz_buzz_encode(number):$/;"	member	line:271	class:FizzBuzzer
+main	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^def main():$/;"	function	line:291

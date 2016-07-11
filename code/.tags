@@ -1,0 +1,51 @@
+np	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^import numpy as np$/;"	namespace	line:4
+tf	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^import tensorflow as tf$/;"	namespace	line:5
+NUM_DIGITS	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^NUM_DIGITS = 10$/;"	variable	line:7
+binary_encode	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^def binary_encode(i, num_digits):$/;"	function	line:10
+fizz_buzz_encode	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^def fizz_buzz_encode(i):$/;"	function	line:14
+trX	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^trX = np.array([binary_encode(i, NUM_DIGITS) for i in range(101, 2 ** NUM_DIGITS)])$/;"	variable	line:23
+trY	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^trY = np.array([fizz_buzz_encode(i)          for i in range(101, 2 ** NUM_DIGITS)])$/;"	variable	line:24
+init_weights	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^def init_weights(shape):$/;"	function	line:27
+model	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^def model(X, w_h, w_o, b_h, b_o):$/;"	function	line:33
+X	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^X = tf.placeholder("float", [None, NUM_DIGITS])$/;"	variable	line:38
+Y	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^Y = tf.placeholder("float", [None, 4])$/;"	variable	line:39
+NUM_HIDDEN	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^NUM_HIDDEN = 100$/;"	variable	line:42
+w_h	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^w_h = init_weights([NUM_DIGITS, NUM_HIDDEN])$/;"	variable	line:45
+w_o	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^w_o = init_weights([NUM_HIDDEN, 4])$/;"	variable	line:46
+b_h	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^b_h = init_weights([NUM_HIDDEN])$/;"	variable	line:47
+b_o	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^b_o = init_weights([4])$/;"	variable	line:48
+py_x	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^py_x = model(X, w_h, w_o, b_h, b_o)$/;"	variable	line:51
+pred	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^pred = tf.nn.softmax(py_x)$/;"	variable	line:54
+cost	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^cost = tf.reduce_mean(-tf.reduce_sum(Y * tf.log(pred), reduction_indices=1))$/;"	variable	line:55
+train_op	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^train_op = tf.train.GradientDescentOptimizer(0.5).minimize(cost)$/;"	variable	line:57
+predict_op	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^predict_op = tf.argmax(py_x, 1)$/;"	variable	line:60
+fizz_buzz	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^def fizz_buzz(i, prediction):$/;"	function	line:64
+BATCH_SIZE	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz-tensorflow/fizz_buzz.py	/^BATCH_SIZE = 128$/;"	variable	line:67
+division	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^from __future__ import division$/;"	namespace	line:7
+print_function	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^from __future__ import print_function$/;"	namespace	line:8
+np	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^import numpy as np$/;"	namespace	line:10
+tf	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^import tensorflow as tf$/;"	namespace	line:11
+namedtuple	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^from collections import namedtuple$/;"	namespace	line:13
+Layer	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^Layer = namedtuple('Layer', 'weights, bias')$/;"	variable	line:16
+Data	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^Data = namedtuple('Data', 'examples, labels')$/;"	variable	line:17
+FizzBuzzer	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^class FizzBuzzer(object):$/;"	class	line:20
+CLASSES	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    CLASSES = 4$/;"	variable	line:22	class:FizzBuzzer
+__init__	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def __init__(self, digits, hidden_units=100, batch_size=128):$/;"	member	line:24	class:FizzBuzzer
+predict	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def predict(self, number):$/;"	member	line:51	class:FizzBuzzer
+train	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def train(self):$/;"	member	line:71	class:FizzBuzzer
+setup_graph	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def setup_graph(self):$/;"	member	line:81	class:FizzBuzzer
+propagate	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def propagate(self, data, layer, activation=None):$/;"	member	line:112	class:FizzBuzzer
+generate_training_data	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def generate_training_data(self, digits):$/;"	member	line:128	class:FizzBuzzer
+preprocess	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def preprocess(self, number):$/;"	member	line:147	class:FizzBuzzer
+binary_encode	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def binary_encode(self, number, digits):$/;"	member	line:162	class:FizzBuzzer
+__repr__	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def __repr__(self):$/;"	member	line:179	class:FizzBuzzer	file:
+__enter__	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def __enter__(self):$/;"	member	line:183	class:FizzBuzzer	file:
+__exit__	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def __exit__(self, exc_type, exc_value, traceback):$/;"	member	line:190	class:FizzBuzzer	file:
+decode	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def decode(number, prediction):$/;"	member	line:197	class:FizzBuzzer
+sample_batch	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def sample_batch(data, size):$/;"	member	line:209	class:FizzBuzzer
+compute_accuracy	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def compute_accuracy(p, q):$/;"	member	line:221	class:FizzBuzzer
+cross_entropy	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def cross_entropy(p, q):$/;"	member	line:233	class:FizzBuzzer
+create_layer	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def create_layer(input_units, output_units):$/;"	member	line:245	class:FizzBuzzer
+create_weights	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def create_weights(shape):$/;"	member	line:259	class:FizzBuzzer
+fizz_buzz_encode	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^    def fizz_buzz_encode(number):$/;"	member	line:271	class:FizzBuzzer
+main	/Users/petergoldsborough/Documents/University/courses/ml/python-meetup-munich-2016/code/fizz-buzz.py	/^def main():$/;"	function	line:291

@@ -336,6 +336,20 @@
   \end{itemize}
 \end{slide}
 
+% First explain what an LSTM consists of
+
+\begin{slide}{LSTMs}
+  \begin{itemize}
+    \pitem LSTMs are a lot like flip-flops
+    \pitem They have three \emph{gates}
+    \begin{itemize}
+      \pitem Input gate $G_i(x, h_{t-1}) = \sigma(\mathbf{w}_i^\top [x, h_{t-1}] + b_i)$
+      \pitem Forget gate $G_f(x, h_{t-1}) = \sigma(\mathbf{w}_f^\top [x, h_{t-1}] + b_f)$
+      \pitem Output gate $G_o(x, h_{t-1}) = \sigma(\mathbf{w}_o^\top [x, h_{t-1}] + b_o)$
+    \end{itemize}
+  \end{itemize}
+\end{slide}
+
 \begin{slide}{LSTMs}
   \begin{tikzpicture}[thick]
     % Unit
