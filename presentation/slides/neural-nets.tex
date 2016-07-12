@@ -15,21 +15,19 @@
 
 \begin{slide}{Neural Networks: Biological Motivation}
   \centering
-  \pause
-  \includegraphics[scale=0.25]{bio-neuron}
-  \cite{karpathy1}
-  \vspace{0.3cm}
+  \includegraphics[scale=0.275]{bio-neuron}
+  \begin{flushleft}\cite{karpathy1}\end{flushleft}
+  % \vspace{0.5cm}
   % 86 Million Neurons
-  \begin{itemize}
-    \pitem Receive electrochemical signals through \emph{dendrites}
-    \pitem Fire their own signal if the input exceeds some threshold
-    \pitem Forward their signals via \emph{axons}
-    % \pitem Connected via \emph{synapses}, which control the strength of interaction % (multiplicative factor)
-    \pitem Connected via \emph{synapses}
-    % \pitem The dynamic alteration of synaptic strengths are the primary source of human \emph{learning} % in this simplified model at least
-
-    % Pavlovian example: human rings bell, dog salivates. So the corresponding connections between the parts of the brain responsible for hearing (the neurons responsible for reacting to this bell noise) and the part responsible for salivation (I'm hungry mode) have strong synaptic connections, so that their stimuli are closely correlated.
-  \end{itemize}
+  % \begin{itemize}
+  %   \item Receive electrochemical signals through \emph{dendrites}
+  %   \item Fire their own signal if the input exceeds some threshold
+  %   \item Forward their signals via \emph{axons}
+  %   % \pitem Connected via \emph{synapses}, which control the strength of interaction % (multiplicative factor)
+  %   % \pitem The dynamic alteration of synaptic strengths are the primary source of human \emph{learning} % in this simplified model at least
+  %
+  %   % Pavlovian example: human rings bell, dog salivates. So the corresponding connections between the parts of the brain responsible for hearing (the neurons responsible for reacting to this bell noise) and the part responsible for salivation (I'm hungry mode) have strong synaptic connections, so that their stimuli are closely correlated.
+  % \end{itemize}
 \end{slide}
 
 \begin{slide}{Neural Networks: Mathematical Model}
@@ -388,7 +386,7 @@
     }
     \draw (0, -3.8) node {Input Layer};
 
-    % Output layer
+    % Hidden layer
     \foreach \i in {0, ..., 3} {
       \path (3, {-\i}) coordinate [draw, circle, thick, inner sep=7pt]
             (h\i) node {$h_\i$};
@@ -853,24 +851,24 @@
 \end{slide}
 
 \begin{slide}{Dropout}
-  \begin{itemize}
-    \item<1-> One recent regularization technique is \emph{Dropout}
-    \item<2-> It is used especially for deep neural networks
-    \item<3-> Basic idea:
-    \begin{itemize}
-      \item<4-> We deactivate neurons on each activation with probability $p$
-      % \item<5-> Can be seen as sampling a new neural network each time
-      \item<5-> This prevents neurons from depending too much on each other % A unit could put all the weight into one input unit
-      % \item<7-> When we deactivate $1/p$ units, we scale active units by $p$
-      % This ensures that the expected sum coming to the unit stays the same
-      % What it's basically doing is momentarily putting more weight into the other units, to tell the neuron "pay more attention to these features!" If as a result, the error is large, this is good, because then the gradient update will push these weights into better directions accordingly and the algorithm will learn from these units
-      % Both the output and the gradient flowing through this unit will be zero
-      % We are literally just removing the connections, i.e. it will not get any input
-      % What we are doing is sampling a new neural network
-    \end{itemize}
-  \end{itemize}
-  \only<-6>{\vspace{3.5cm}}
-  \only<7>{
+  % \begin{itemize}
+  %   \item<1-> One recent regularization technique is \emph{Dropout}
+  %   \item<2-> It is used especially for deep neural networks
+  %   \item<3-> Basic idea:
+  %   \begin{itemize}
+  %     \item<4-> We deactivate neurons on each activation with probability $p$
+  %     % \item<5-> Can be seen as sampling a new neural network each time
+  %     \item<5-> This prevents neurons from depending too much on each other % A unit could put all the weight into one input unit
+  %     % \item<7-> When we deactivate $1/p$ units, we scale active units by $p$
+  %     % This ensures that the expected sum coming to the unit stays the same
+  %     % What it's basically doing is momentarily putting more weight into the other units, to tell the neuron "pay more attention to these features!" If as a result, the error is large, this is good, because then the gradient update will push these weights into better directions accordingly and the algorithm will learn from these units
+  %     % Both the output and the gradient flowing through this unit will be zero
+  %     % We are literally just removing the connections, i.e. it will not get any input
+  %     % What we are doing is sampling a new neural network
+  %   \end{itemize}
+  % \end{itemize}
+  % \only<-6>{\vspace{3.5cm}}
+  \only<1>{
   \begin{tikzpicture}
     % Input layer
     \foreach \i in {0, 1} {
@@ -906,7 +904,7 @@
       }
   \end{tikzpicture}
   }
-  \only<8>{
+  \only<2>{
   \begin{tikzpicture}[cross/.style={path picture={
   \draw[black]
 (path picture bounding box.south east) -- (path picture bounding box.north west) (path picture bounding box.south west) -- (path picture bounding box.north east);
@@ -948,7 +946,7 @@
       }
   \end{tikzpicture}
   }
-  \only<9>{
+  \only<3>{
   \begin{tikzpicture}[cross/.style={path picture={
   \draw[black]
 (path picture bounding box.south east) -- (path picture bounding box.north west) (path picture bounding box.south west) -- (path picture bounding box.north east);
@@ -990,7 +988,7 @@
       }
   \end{tikzpicture}
   }
-  \only<10>{
+  \only<4>{
   \begin{tikzpicture}[cross/.style={path picture={
   \draw[black]
 (path picture bounding box.south east) -- (path picture bounding box.north west) (path picture bounding box.south west) -- (path picture bounding box.north east);

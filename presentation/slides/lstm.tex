@@ -2,8 +2,7 @@
 
 \begin{slide}{Sequences}
   \begin{itemize}
-    \item<1-> Humans think in sequences
-    \item<2-> Simple neural networks don't
+    \item<2-> Humans think in sequences
     \item<3-> Sequences give single entities context
     \item<5-> The key to understanding sequences is memory
   \end{itemize}
@@ -86,9 +85,9 @@
 
 \begin{slide}{Recurrent Neural Networks}
   \begin{itemize}
-    \item Recurrent Neural Networks (RNNs) share weights through time
-    \item They have \emph{memory}
-    \item And they have a problem:
+    \pitem Recurrent Neural Networks (RNNs) share weights through time
+    \pitem They have \emph{memory}
+    \pitem And they have a problem:
   \end{itemize}
   \vspace{1cm}
   {
@@ -343,11 +342,14 @@
     \pitem LSTMs are a lot like flip-flops
     \pitem They have three \emph{gates}
     \begin{itemize}
-      \pitem Input gate $G_i(x, h_{t-1}) = \sigma(\mathbf{w}_i^\top [x, h_{t-1}] + b_i)$
-      \pitem Forget gate $G_f(x, h_{t-1}) = \sigma(\mathbf{w}_f^\top [x, h_{t-1}] + b_f)$
-      \pitem Output gate $G_o(x, h_{t-1}) = \sigma(\mathbf{w}_o^\top [x, h_{t-1}] + b_o)$
+      \pitem Input gate
+      \pitem Forget gate
+      \pitem Output gate
     \end{itemize}
   \end{itemize}
+  \vspace{0.5cm}
+  \pause
+  $G_i(x_t, h_{t-1}) = \sigma(\mathbf{w}_i^\top [x_t, h_{t-1}] + b_i)$
 \end{slide}
 
 \begin{slide}{LSTMs}
@@ -520,5 +522,12 @@
   {
     \huge
     They can write Linux kernel code!
+  }
+\end{slide}
+
+\begin{slide}{LSTMs: What can they do?}
+  {
+    \huge
+    They can compose music!
   }
 \end{slide}

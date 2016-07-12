@@ -19,6 +19,7 @@ Data = namedtuple('Data', 'examples, labels')
 
 class FizzBuzzer(object):
     """Fizzes, then buzzes."""
+
     CLASSES = 4
 
     def __init__(self, digits, hidden_units=100, batch_size=128):

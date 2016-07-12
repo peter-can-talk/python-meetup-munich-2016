@@ -109,153 +109,178 @@
   }
 \end{slide}
 
-\begin{slide}{Convolutional Neural Network}
-  \begin{itemize}
-    \item<1-> We want to classify images into one of $k$ classes
-    \item<2-> The model should learn to extract features
-    \item<3-> We expect it to exploit the hierarchical nature of the data
-    \begin{enumerate}
-      \item<4-> Lines and edges
-      \item<4-> Corners and contours
-      \item<4-> Abstract components (e.g. noses, ears, feet)
-      \item<4-> Entire objects (e.g. faces, spaceship)
-    \end{enumerate}
-    \item<5-> First idea: just feed the pixels into a neural network
-  \end{itemize}
-\end{slide}
-
-\begin{slide}{Convolutional Neural Network}
-  $$
-  \begin{sbmatrix}{R}
-    116 & 80 \\
-    170 & 194 \\
-  \end{sbmatrix}
-  \hspace{0.5cm}
-  \begin{sbmatrix}{G}
-    82 & 78 \\
-    5 & 236 \\
-  \end{sbmatrix}
-  \hspace{0.5cm}
-  \begin{sbmatrix}{B}
-    76 & 139 \\
-    245 & 236 \\
-  \end{sbmatrix}
-  $$
-  \pause
-  \texttt{concatenate(}$R$\texttt{.flatten, }$G$\texttt{.flatten, }$B$\texttt{.flatten}\texttt{)}
-\end{slide}
-
-\begin{slide}{Convolutional Neural Network}
-  $$
-  \begin{sbmatrix}{R}
-    116 & 80 \\
-    170 & 194 \\
-  \end{sbmatrix}
-  \hspace{0.5cm}
-  \begin{sbmatrix}{G}
-    82 & 78 \\
-    5 & 236 \\
-  \end{sbmatrix}
-  \hspace{0.5cm}
-  \begin{sbmatrix}{B}
-    76 & 139 \\
-    245 & 236 \\
-  \end{sbmatrix}
-  $$
-  \begin{align*}
-    R\mathtt{.flatten} &= \begin{bmatrix}116 & 80 & 170 & 194\end{bmatrix}
-  \end{align*}
-\end{slide}
-
-\begin{slide}{Convolutional Neural Network}
-  $$
-  \begin{sbmatrix}{R}
-    116 & 80 \\
-    170 & 194 \\
-  \end{sbmatrix}
-  \hspace{0.5cm}
-  \begin{sbmatrix}{G}
-    82 & 78 \\
-    5 & 236 \\
-  \end{sbmatrix}
-  \hspace{0.5cm}
-  \begin{sbmatrix}{B}
-    76 & 139 \\
-    245 & 236 \\
-  \end{sbmatrix}
-  $$
-  \begin{align*}
-    R\mathtt{.flatten} &= \begin{bmatrix}116 & 80 & 170 & 194\end{bmatrix}\\
-    G\mathtt{.flatten} &= \begin{bmatrix}82 & 78 & 5 & 236\end{bmatrix}
-  \end{align*}
-\end{slide}
-
-\begin{slide}{Convolutional Neural Network}
-  $$
-  \begin{sbmatrix}{R}
-    116 & 80 \\
-    170 & 194 \\
-  \end{sbmatrix}
-  \hspace{0.5cm}
-  \begin{sbmatrix}{G}
-    82 & 78 \\
-    5 & 236 \\
-  \end{sbmatrix}
-  \hspace{0.5cm}
-  \begin{sbmatrix}{B}
-    76 & 139 \\
-    245 & 236 \\
-  \end{sbmatrix}
-  $$
-  \begin{align*}
-    R\mathtt{.flatten} &= \begin{bmatrix}116 & 80 & 170 & 194\end{bmatrix}\\
-    G\mathtt{.flatten} &= \begin{bmatrix}82 & 78 & 5 & 236\end{bmatrix}\\
-    B\mathtt{.flatten} &= \begin{bmatrix}76 & 139 & 245 & 236\end{bmatrix}
-  \end{align*}
-\end{slide}
-
-\begin{slide}{Convolutional Neural Network}
-  $$
-  \begin{sbmatrix}{R}
-    116 & 80 \\
-    170 & 194 \\
-  \end{sbmatrix}
-  \hspace{0.5cm}
-  \begin{sbmatrix}{G}
-    82 & 78 \\
-    5 & 236 \\
-  \end{sbmatrix}
-  \hspace{0.5cm}
-  \begin{sbmatrix}{B}
-    76 & 139 \\
-    245 & 236 \\
-  \end{sbmatrix}
-  $$
-
-  \begin{align*}
-    R\mathtt{.flatten} &= \begin{bmatrix}116 & 80 & 170 & 194\end{bmatrix}\\
-    G\mathtt{.flatten} &= \begin{bmatrix}82 & 78 & 5 & 236\end{bmatrix}\\
-    B\mathtt{.flatten} &= \begin{bmatrix}76 & 139 & 245 & 236\end{bmatrix}
-  \end{align*}
-
-  $$\mathbf{x} = \begin{bmatrix}116,  80, 170, 194,  82,  78,   5, 236,  76, 139, 245, 236\end{bmatrix}$$
-\end{slide}
-
 \begin{slide}{Convolutional Neural Networks}
   \begin{itemize}
-    \item Why is this a bad idea?
-    \begin{enumerate}
-      \pitem Fully connected NNs scale badly for images
-      \begin{itemize}
-        \pitem $200 \times 200 \times 3 = 120,000$ features
-        \pitem With 100 hidden units: $100 \times 120,000 = 12,000,000$
-        % \pitem With 5 layers: $12,000,000 \times 5 = 60,000,000$ weights
-        % \pitem $1000 \times 1000 \rightarrow 1,500,000,000$ weights
-      \end{itemize}
-      \pitem It assumes every pixel has entirely new information
-    \end{enumerate}
+    \item<1-> We want to classify images into one of $k$ classes
+    \item<2-> Extract hierarchical features
+    % \item<2-> The model should learn to extract features
+    % \item<3-> We expect it to exploit the hierarchical nature of the data
+    \vspace{1cm}
+
+    \begin{tikzpicture}[thick]
+      \onslide<3->{
+      \path (0, 0) coordinate
+            [draw, rectangle, rounded corners, text width=1cm, text height = 7pt]
+            (e) node {Edges};
+      }
+
+      \onslide<4->{
+        \path (2.25, 0) coordinate
+              [draw, rectangle, rounded corners, text width=1.4cm, text height = 7pt]
+              (cont) node {Contours};
+        \draw [->] (e) -- (cont);
+      }
+
+      \onslide<5->{
+        \path (4.9, 0) coordinate
+              [draw, rectangle, rounded corners, text width=1.9cm, text height = 7pt]
+              (comp) node {Components};
+        \draw [->] (cont) -- (comp);
+      }
+
+      \onslide<6->{
+        \path (7.5, 0) coordinate
+              [draw, rectangle, rounded corners, text width=1.1cm, text height = 7pt]
+              (o) node {Objects};
+        \draw [->] (comp) -- (o);
+      }
+    \end{tikzpicture}
+
+    % \vspace{0.5cm}
+    % \item<7-> First idea: feed the pixels into a neural network
   \end{itemize}
 \end{slide}
+
+% \begin{slide}{Convolutional Neural Networks}
+%   $$
+%   \begin{sbmatrix}{R}
+%     116 & 80 \\
+%     170 & 194 \\
+%   \end{sbmatrix}
+%   \hspace{0.5cm}
+%   \begin{sbmatrix}{G}
+%     82 & 78 \\
+%     5 & 236 \\
+%   \end{sbmatrix}
+%   \hspace{0.5cm}
+%   \begin{sbmatrix}{B}
+%     76 & 139 \\
+%     245 & 236 \\
+%   \end{sbmatrix}
+%   $$
+%   \pause
+%   \texttt{concatenate(}$R$\texttt{.flatten, }$G$\texttt{.flatten, }$B$\texttt{.flatten}\texttt{)}
+% \end{slide}
+%
+% \begin{slide}{Convolutional Neural Networks}
+%   $$
+%   \begin{sbmatrix}{R}
+%     116 & 80 \\
+%     170 & 194 \\
+%   \end{sbmatrix}
+%   \hspace{0.5cm}
+%   \begin{sbmatrix}{G}
+%     82 & 78 \\
+%     5 & 236 \\
+%   \end{sbmatrix}
+%   \hspace{0.5cm}
+%   \begin{sbmatrix}{B}
+%     76 & 139 \\
+%     245 & 236 \\
+%   \end{sbmatrix}
+%   $$
+%   \begin{align*}
+%     R\mathtt{.flatten} &= \begin{bmatrix}116 & 80 & 170 & 194\end{bmatrix}
+%   \end{align*}
+% \end{slide}
+%
+% \begin{slide}{Convolutional Neural Networks}
+%   $$
+%   \begin{sbmatrix}{R}
+%     116 & 80 \\
+%     170 & 194 \\
+%   \end{sbmatrix}
+%   \hspace{0.5cm}
+%   \begin{sbmatrix}{G}
+%     82 & 78 \\
+%     5 & 236 \\
+%   \end{sbmatrix}
+%   \hspace{0.5cm}
+%   \begin{sbmatrix}{B}
+%     76 & 139 \\
+%     245 & 236 \\
+%   \end{sbmatrix}
+%   $$
+%   \begin{align*}
+%     R\mathtt{.flatten} &= \begin{bmatrix}116 & 80 & 170 & 194\end{bmatrix}\\
+%     G\mathtt{.flatten} &= \begin{bmatrix}82 & 78 & 5 & 236\end{bmatrix}
+%   \end{align*}
+% \end{slide}
+%
+% \begin{slide}{Convolutional Neural Networks}
+%   $$
+%   \begin{sbmatrix}{R}
+%     116 & 80 \\
+%     170 & 194 \\
+%   \end{sbmatrix}
+%   \hspace{0.5cm}
+%   \begin{sbmatrix}{G}
+%     82 & 78 \\
+%     5 & 236 \\
+%   \end{sbmatrix}
+%   \hspace{0.5cm}
+%   \begin{sbmatrix}{B}
+%     76 & 139 \\
+%     245 & 236 \\
+%   \end{sbmatrix}
+%   $$
+%   \begin{align*}
+%     R\mathtt{.flatten} &= \begin{bmatrix}116 & 80 & 170 & 194\end{bmatrix}\\
+%     G\mathtt{.flatten} &= \begin{bmatrix}82 & 78 & 5 & 236\end{bmatrix}\\
+%     B\mathtt{.flatten} &= \begin{bmatrix}76 & 139 & 245 & 236\end{bmatrix}
+%   \end{align*}
+% \end{slide}
+%
+% \begin{slide}{Convolutional Neural Networks}
+%   $$
+%   \begin{sbmatrix}{R}
+%     116 & 80 \\
+%     170 & 194 \\
+%   \end{sbmatrix}
+%   \hspace{0.5cm}
+%   \begin{sbmatrix}{G}
+%     82 & 78 \\
+%     5 & 236 \\
+%   \end{sbmatrix}
+%   \hspace{0.5cm}
+%   \begin{sbmatrix}{B}
+%     76 & 139 \\
+%     245 & 236 \\
+%   \end{sbmatrix}
+%   $$
+%
+%   \begin{align*}
+%     R\mathtt{.flatten} &= \begin{bmatrix}116 & 80 & 170 & 194\end{bmatrix}\\
+%     G\mathtt{.flatten} &= \begin{bmatrix}82 & 78 & 5 & 236\end{bmatrix}\\
+%     B\mathtt{.flatten} &= \begin{bmatrix}76 & 139 & 245 & 236\end{bmatrix}
+%   \end{align*}
+%
+%   $$\mathbf{x} = \begin{bmatrix}116,  80, 170, 194,  82,  78,   5, 236,  76, 139, 245, 236\end{bmatrix}$$
+% \end{slide}
+%
+% \begin{slide}{Convolutional Neural Networks}
+%   \frameheader{Why is this a bad idea?}
+%   \begin{enumerate}
+%     \pitem Fully connected NNs scale badly for images
+%     \begin{itemize}
+%       \pitem $200 \times 200 \times 3 = 120,000$ features
+%       \pitem With 100 hidden units: $100 \times 120,000 = 12,000,000$
+%       % \pitem With 5 layers: $12,000,000 \times 5 = 60,000,000$ weights
+%       % \pitem $1000 \times 1000 \rightarrow 1,500,000,000$ weights
+%     \end{itemize}
+%     \pitem It assumes every pixel has entirely new information
+%   \end{enumerate}
+% \end{slide}
 
 \begin{slide}{Convolutional Neural Networks}
   \only<1>{
@@ -286,7 +311,7 @@
 \begin{slide}{Convolutional Neural Networks}
   \begin{itemize}
     \item Our network learns to detect a feature in one part of the image
-    \pitem Wouldn't it make sense to reuse that information?
+    \item Wouldn't it make sense to reuse that information?
     % If the network learns to recognize a horizontal edge in the top left corner, then we want it to reuse that information elsewhere
     % Otherwise the neurons of each layer would need to re-learn that information
     \pitem Yes!
@@ -298,20 +323,20 @@
   }
 \end{slide}
 
-\begin{slide}{Convolutional Neural Network: Mechanics}
+\begin{slide}{Convolutional Neural Networks: Mechanics}
   \frameheader{Recipe for a Convolutional Neural Network}
   \begin{itemize}
     \item<2-> Ingredients
     \begin{enumerate}
       \item<3-> Image $I$ with dimension $w \times h \times d$
-      \item<4-> A kernel (filter) $K$ of size $k \times k \times d$
+      \item<4-> A kernel (filter) $K$ of size $k \times l \times m$
     \end{enumerate}
     \item<5-> Cooking
     \begin{itemize}
       \item<6-> \only<6>{Put the image into the oven at 150\degree C}\only<7->{Don't put the image into the oven at 150\degree C}
       \item<8-> Slide the kernel across the image
       \item<9-> Compute the ``dot product'' for each configuration
-      \item<10-> (This is a convolution $I \ast K$)
+      % \item<10-> (This is a convolution $I \ast K$)
     \end{itemize}
   \end{itemize}
 \end{slide}
@@ -372,7 +397,7 @@
 %   }
 % \end{slide}
 
-\begin{slide}{Convolutional Neural Network: Mechanics}
+\begin{slide}{Convolutional Neural Networks: Mechanics}
   \begin{tikzpicture}
     % Image
     \draw (0, 0) grid ++(3, 3);
@@ -555,7 +580,7 @@
   \end{tikzpicture}
 \end{slide}
 
-\begin{slide}{Convolutional Neural Network: Mechanics}
+\begin{slide}{Convolutional Neural Networks: Mechanics}
   \begin{tikzpicture}
     \yzplane{0}{
       \foreach \y in {0, ..., 2} {
@@ -601,7 +626,7 @@
   % So if the input layer has k feature maps, the output layer will have x feature maps
 \end{slide}
 
-\begin{slide}{Convolutional Neural Network: Hyperparameters}
+\begin{slide}{Convolutional Neural Networks: Hyperparameters}
   \begin{itemize}
     \item<1-> Convolutional Neural Networks have three hyperparameters
     \begin{enumerate}
@@ -651,46 +676,46 @@
   }
 \end{slide}
 
-\begin{frame}[fragile]{Convolutional Neural Networks: Pooling}
-  \begin{itemize}
-    \item<1-> \emph{Pooling} achieves translational invariance
-    \item<2-> A form of downsampling
-    \item<3-> The maximum stays the maximum
-    % Pooling reduces the width and height, convolutions modify the depth
-  \end{itemize}
-  \vspace{0.5cm}
-
-  \begin{center}
-  \begin{tikzpicture}
-    \newcommand{\numbergrid}[4]{%
-      \draw (0, 0) rectangle ++(1, 1) node [midway] {#1};%
-      \draw (1, 0) rectangle ++(1, 1) node [midway] {#2};%
-      \draw (0, 1) rectangle ++(1, 1) node [midway] {#3};%
-      \draw (1, 1) rectangle ++(1, 1) node [midway] {#4};%
-    }
-    \only<3> {\numbergrid{6}{32}{66}{2}}
-    \only<4> {\numbergrid{66}{32}{6}{2}}
-    \only<5> {\numbergrid{6}{32}{2}{66}}
-    \only<6> {\numbergrid{2}{66}{32}{6}}
-  \end{tikzpicture}
-\end{center}
-\end{frame}
-
-\begin{slide}{Convolutional Neural Network: Architecture}
-  \texttt{INPUT ->}
-
-  \texttt{[[CONV -> RELU]*N -> POOL?]*M ->}
-
-  \texttt{[FC -> RELU]*K -> FC}
-
-  \begin{flushleft}\cite{karpathy1}\end{flushleft}
-\end{slide}
+% \begin{frame}[fragile]{Convolutional Neural Networks: Pooling}
+%   \begin{itemize}
+%     \item<1-> \emph{Pooling} achieves translational invariance
+%     \item<2-> A form of downsampling
+%     \item<3-> The maximum stays the maximum
+%     % Pooling reduces the width and height, convolutions modify the depth
+%   \end{itemize}
+%   \vspace{0.5cm}
+%
+%   \begin{center}
+%   \begin{tikzpicture}
+%     \newcommand{\numbergrid}[4]{%
+%       \draw (0, 0) rectangle ++(1, 1) node [midway] {#1};%
+%       \draw (1, 0) rectangle ++(1, 1) node [midway] {#2};%
+%       \draw (0, 1) rectangle ++(1, 1) node [midway] {#3};%
+%       \draw (1, 1) rectangle ++(1, 1) node [midway] {#4};%
+%     }
+%     \only<3> {\numbergrid{6}{32}{66}{2}}
+%     \only<4> {\numbergrid{66}{32}{6}{2}}
+%     \only<5> {\numbergrid{6}{32}{2}{66}}
+%     \only<6> {\numbergrid{2}{66}{32}{6}}
+%   \end{tikzpicture}
+% \end{center}
+% \end{frame}
+%
+% \begin{slide}{Convolutional Neural Networks: Architecture}
+%   \texttt{INPUT ->}
+%
+%   \texttt{[[CONV -> RELU]*N -> POOL?]*M ->}
+%
+%   \texttt{[FC -> RELU]*K -> FC}
+%
+%   \begin{flushleft}\cite{karpathy1}\end{flushleft}
+% \end{slide}
 
 \begin{slide}{Convolutional Neural Networks: Intuition}
   \begin{itemize}
     \pitem Each layer of a ConvNet learns to detect features
     \pitem Later layers combine features of earlier layers
-    \pitem For early layers, we can still gain an intuition of what they do
+    % \pitem For early layers, we can still gain an intuition of what they do
   \end{itemize}
 \end{slide}
 

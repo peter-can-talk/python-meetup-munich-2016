@@ -194,7 +194,130 @@
 %   }
 % \end{slide}
 
-\begin{slide}{The Curse of Dimensionality}
+\begin{slide}{Neural Networks}
+  \begin{tikzpicture}
+    % Input layer
+    \foreach \i in {0, ..., 3} {
+      \path (0, {-\i}) coordinate [draw, circle, thick, inner sep=7pt]
+            (x\i) node {$x_\i$};
+    }
+    \draw (0, -3.8) node {Input Layer};
+
+    % Output layer
+    \foreach \i in {0, ..., 3} {
+      \path (3, {-\i}) coordinate [draw, circle, thick, inner sep=7pt]
+            (y\i) node {$y_\i$};
+    }
+    \draw (3, -3.8) node {Output Layer};
+
+    % Connections
+    \onslide<2->{
+      \foreach \i in {0, ..., 3} {
+        \foreach \j in {0, ..., 3} {
+          \ifnum\i=0
+            \draw [semithick, ->] (x\i) -- (y\j);
+          \else
+            \onslide<4-> {
+              \draw [semithick, ->] (x\i) -- (y\j);
+            }
+          \fi
+        }
+        \ifnum\i=0
+          \onslide<3>{
+            \draw [line width=0] (x0) -- (y0)
+                  node [above, midway] {$w_{0,0}$};
+
+            \draw [line width=0] (x0) -- (y1)
+                  node [above, pos=0.55, rotate=-10] {$w_{0,1}$};
+
+            \draw [line width=0] (x0) -- (y2)
+                  node [above, pos=0.65, rotate=-20] {$w_{0,2}$};
+
+            \draw [line width=0] (x0) -- (y3)
+                  node [above, pos=0.7, rotate=-30] {$w_{0,3}$};
+          }
+        \fi
+      }
+    }
+  \end{tikzpicture}
+\end{slide}
+
+\begin{slide}{Deep Neural Networks}
+  \begin{tikzpicture}
+    % Input layer
+    \foreach \i in {0, ..., 3} {
+      \path (0, {-\i}) coordinate [draw, circle, thick, inner sep=7pt]
+            (x\i) node {$x_\i$};
+    }
+    \draw (0, -3.8) node {Input Layer};
+
+    % Hidden layer
+    \foreach \i in {0, ..., 3} {
+      \path (3, {-\i}) coordinate [draw, circle, thick, inner sep=7pt]
+            (h\i) node {$h_\i$};
+    }
+    \draw (3, -3.8) node {Hidden Layer};
+
+    % Output layer
+    \foreach \i in {0, ..., 3} {
+      \path (6, {-\i}) coordinate [draw, circle, thick, inner sep=7pt]
+            (y\i) node {$y_\i$};
+    }
+    \draw (6, -3.8) node {Output Layer};
+
+    % Connections
+      \foreach \i in {0, ..., 3} {
+        \foreach \j in {0, ..., 3} {
+            \draw [semithick, ->] (x\i) -- (h\j);
+            \draw [semithick, ->] (h\i) -- (y\j);
+        }
+      }
+  \end{tikzpicture}
+\end{slide}
+
+\begin{slide}{Deep Neural Networks}
+  \begin{tikzpicture}
+    % Input layer
+    \foreach \i in {0, ..., 3} {
+      \path (0, {-\i}) coordinate [draw, circle, thick, inner sep=7pt]
+            (x\i) node {$x_\i$};
+    }
+    \draw (0, -3.8) node {Input Layer};
+
+    % Hidden layer
+    \foreach \i in {0, ..., 3} {
+      \path (3, {-\i}) coordinate [draw, circle, thick, inner sep=7pt]
+            (h1\i) node {$h_{1,\i}$};
+    }
+    \draw (3, -3.8) node {Hidden Layer};
+
+    % Hidden layer
+    \foreach \i in {0, ..., 3} {
+      \path (6, {-\i}) coordinate [draw, circle, thick, inner sep=7pt]
+            (h2\i) node {$h_{2,\i}$};
+    }
+    \draw (6, -3.8) node {Hidden Layer};
+
+    % Output layer
+    \foreach \i in {0, ..., 3} {
+      \path (9, {-\i}) coordinate [draw, circle, thick, inner sep=7pt]
+            (y\i) node {$y_\i$};
+    }
+    \draw (9, -3.8) node {Output Layer};
+
+    % Connections
+      \foreach \i in {0, ..., 3} {
+        \foreach \j in {0, ..., 3} {
+            \draw [semithick, ->] (x\i) -- (h1\j);
+            \draw [semithick, ->] (h1\i) -- (h2\j);
+            \draw [semithick, ->] (h2\i) -- (y\j);
+        }
+      }
+  \end{tikzpicture}
+\end{slide}
+
+% \begin{slide}{The Curse of Dimensionality}
+\begin{slide}{Deep Learning}
   {\Large
     Deep Learning assumes that data is structured\\
 
@@ -217,7 +340,7 @@
 
 \begin{slide}{Deep Learning}
   \begin{itemize}
-    \pitem Why the recent success of deep learning? %Why did it take so long for deep learning to take off?
+    \item Why the recent success of deep learning? %Why did it take so long for deep learning to take off?
     \pitem Three reasons
     \begin{enumerate}
       \pitem Better hardware

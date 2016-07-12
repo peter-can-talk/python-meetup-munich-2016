@@ -5,27 +5,18 @@
   \vspace{0.4cm}
   {\huge \color{orange} What is Machine Learning?}\\
   \vspace{0.2cm}
-  \pause
   {\small (and can I eat it?)}
 \end{frame}
 
 \begin{slide}{Definition I}
   \centering
   \Large
-  \pause
-  Machine Learning is cool.
-\end{slide}
-
-\begin{slide}{Definition II}
-  \centering
-  \Large
-  Machine Learning is \emph{really} cool.
+  Machine Learning is \only<2>{really }cool.
 \end{slide}
 
 % A machine learning algorithm is an algorithm that is able to learn from data
-\begin{slide}{Definition III}
+\begin{slide}{Definition II}
   \begin{quote}
-    \pause
     Machine learning is not magic; it can't get something from nothing.
     \pause
     \vspace{0.5cm}\\
@@ -39,7 +30,7 @@
   \cite{domingos2012}
 \end{slide}
 
-\begin{slide}{Definition IV}
+\begin{slide}{Definition III}
 \begin{quote}
   A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$, if its performance at tasks in $T$, as measured by $P$, improves with experience $E$.
 \end{quote}
@@ -47,7 +38,7 @@
 \end{slide}
 % Usually what we are doing in machine learning is trying to generate predictive models. For example, in image classification, given only a small amount of data, we want to produce or *learn* an algorithm that can predict the class of an image it has never seen before. In that sense, we know that in the space of all possible functions mapping images to classes (dog, cat, banana), there exists one optimal function f that maps images to their class perfectly. Our aim is to find or *learn* a function f^star with experience, with data and time, that best approximates f. And a performance measure $P$, such as the accuracy, so the number of correct predictions relative to all predictions, tells us how far or close we are from finding such a best approximation f star.
 
-\begin{slide}{Definition IV}
+\begin{slide}{Definition III}
   $$f: \text{Image} \rightarrow \{\text{cat, banana, spaceship, \dots}\}$$
   \vspace{0.5cm}
   \pause
@@ -71,11 +62,12 @@
     \vspace{0.3cm}
     $f: \mathbb{R}^n \rightarrow \{1, \dots, k\}$
   \end{center}
-  \begin{itemize}
-    \pitem Image classification
-    % \pitem Recognizing handwritten digits
-    \pitem Predictive Policing %Placing crime suspects into different threat levels based on crime history
-  \end{itemize}
+  % \pause
+  % \begin{itemize}
+  %   \item Image classification
+  %   % \pitem Recognizing handwritten digits
+  %   \item Predictive Policing %Placing crime suspects into different threat levels based on crime history
+  % \end{itemize}
 \end{slide}
 
 \begin{slide}{The Task, $T$}
@@ -85,11 +77,12 @@
     \vspace{0.3cm}
     $f: \mathbb{R}^n \rightarrow \mathbb{R}$
   \end{center}
-  \begin{itemize}
-    \pitem Algorithmic Trading % Predict future prices given the current and past state of the market. Generally anything that has to do with money.
-    \pitem Predicting the market price of a house % Given its features of size, age, pool
-    % \pitem Predicting the amount of rain in a season
-  \end{itemize}
+  % \pause
+  % \begin{itemize}
+  %   \item Algorithmic Trading % Predict future prices given the current and past state of the market. Generally anything that has to do with money.
+  %   \item Predicting the market price of a house % Given its features of size, age, pool
+  %   % \pitem Predicting the amount of rain in a season
+  % \end{itemize}
 \end{slide}
 
 % \begin{slide}{The Task, $T$}
@@ -126,7 +119,8 @@
   \vspace{1.3cm}
   \large
   \pause
-  Unsupervised Learning % k-means clustering, synthesis tasks, no instructor, the algorithm must make sense of the data itself
-  \hspace{1cm}
   Supervised Learning % Most of deep learning, e.g. image classification; there is an instructor guiding the algorithm, labeling the input. The task of the algorithm is to understand what inputs produce what outputs.
+  \hspace{1cm}
+  \pause
+  Unsupervised Learning % k-means clustering, synthesis tasks, no instructor, the algorithm must make sense of the data itself
 \end{slide}

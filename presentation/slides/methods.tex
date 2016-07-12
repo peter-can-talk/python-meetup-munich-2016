@@ -16,7 +16,8 @@
 \begin{columns}
   \begin{column}{0.5\textwidth}
   \begin{itemize}
-    \item<2-> The components of each vector $\mathbf{b}$ are our \textbf{features}
+    % \item<2-> The components of each vector $\mathbf{b}$ are our \textbf{features}
+    \item<2-> Components of $\mathbf{b}$ are \textbf{features}
     \item<3-> Each feature represents one axis in space
     \vspace{2.4cm}
   \end{itemize}
@@ -104,7 +105,8 @@
   \begin{columns}
   \begin{column}{0.55\textwidth}
   \begin{itemize}
-    \item<1-> To model this, we apply a weight $w_i$ to each component $b_i$
+    % \item<1-> To model this, we apply a weight $w_i$ to each component $b_i$
+    \item<1-> We weight each component
     % \item<2-> Positive values of $w_i$ \emph{encourage} positive values of $b_i$
     % \item<3-> Negative values of $w_i$ \emph{inhibit} $b_i$
     \item<2-> We add a bias $c$ as an offset % e.g. negative bias means we expect a minimum amount for the sum of each component
@@ -178,7 +180,7 @@
       \draw (tr) -- (d);
     }
 
-    \onslide<3->{
+    \onslide<4->{
     \path (3, 0) coordinate [
         draw,
         rectangle,
@@ -192,7 +194,7 @@
     \draw (va) -- (d);
     }
 
-    \onslide<4->{
+    \onslide<3->{
     \path (6, 0) coordinate [
         draw,
         rectangle,
@@ -235,7 +237,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
     w_1 \\
     w_2 \\
     w_3
-  \end{sbmatrix} +\, c =
+  \end{sbmatrix} +_b\, c =
   \begin{sbmatrix}{\mathbf{y}}
     y_1 \\
     y_2 \\
@@ -252,7 +254,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
   \onslide<3>{
   % Let k be the number of features
   $$
-  L(\mathbf{y}, \mathbf{\hat{y}}) = MSE(\mathbf{y}, \mathbf{\hat{y}}) = \frac{1}{k}\sum_{i=1}^k(y_i - \hat{y_i})^2
+  L(\mathbf{y}, \mathbf{\hat{y}}) = MSE(\mathbf{y}, \mathbf{\hat{y}}) = \frac{1}{n}\sum_{i=1}^n(y_i - \hat{y_i})^2
   $$
   }
 \end{slide}
@@ -297,7 +299,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
     }
 
     \onslide<4->{
-      \fill [color=red] (1.8, 1.8) circle [radius=0.05cm];
+      \fill [color=red] (1.8, 1.8) circle [radius=1pt];
     }
 
     \onslide<5->{
@@ -470,22 +472,22 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
 %   $$L(\mathbf{Y}_s, \mathbf{\hat{Y}}) = \frac{1}{n}\sum_{i=1}^n H(\mathbf{Y}_{s_i}, \mathbf{\hat{Y}}_i)$$
 % \end{slide}
 
-\begin{slide}{Methods: Weight Update}
+\begin{slide}{Methods: Gradient Descent}
   \centering
 \begin{itemize}
   \item Through $L(\mathbf{y}, \mathbf{\hat{y}})$ we know how our algorithm is performing
-  \pitem We can compute its rate of change (derivative)
-  \pitem Move our weights in the opposite direction
+  \item We can compute its rate of change (derivative)
+  \item Move our weights in the opposite direction
   % \item Next time, the loss will be smaller
   % \item We repeat this, until we're happy
 \end{itemize}
 
 \pause
 \vspace{1cm}
-\textbf{This is the core idea behind Machine Learning}
+\textbf{This is the core idea behind Supervised Learning}
 \end{slide}
 
-\begin{slide}{Methods: Weight Update}
+\begin{slide}{Methods: Gradient Descent}
   \centering
   \begin{itemize}
     % L is the per-example loss
@@ -493,7 +495,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
     % \item We are interested in the way the loss changes w.r.t to the \emph{weights} $\mathbf{w}$ (and bias $b$) % but we can just think of b as an extra entry in the vector w if we adjust our design matrix accordingly
     % \item Moreover, we think in terms of entire batches, not single examples
     % \item We need new notation:
-    \pitem We can think of $\mathbf{Y}, \mathbf{\hat{Y}}$ as being \emph{constant} and write: $$J(w) = \frac{1}{n}\sum_{i=1}^n L(\mathbf{Y}_i, \mathbf{\hat{Y}}_i; w)$$
+    \pitem We can think of $\mathbf{y}, \mathbf{\hat{y}}$ as being \emph{constant} and write: $$J(\mathbf{w}) = \frac{1}{n}\sum_{i=1}^n L(\mathbf{y}_i, \mathbf{\hat{y}}_i; \mathbf{w})$$
   \end{itemize}
   \vspace{0.5cm}
   % \pause
@@ -505,7 +507,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
 \end{slide}
 
 % Hier erstmal alles erklaeren (weight update)
-\begin{slide}{Methods: Weight Update}
+\begin{slide}{Methods: Gradient Descent}
   \centering
   % Note that w is actually a multidimensional vector, so this plot is not quite precise, unless we assume that w consists of only one component
   % Usually you will see three-dimensional plots
@@ -534,7 +536,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
 
     % Tangent
     \only<3-> {
-      \draw [dotted] (1.8, 0.5) -- ++(78.5:4.75);
+      \draw [dotted, thick] (1.8, 0.5) -- ++(78.5:4.75);
     }
   \end{tikzpicture}
   \onslide<4-> {
@@ -573,7 +575,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
 %   \end{itemize}
 % \end{slide}
 %
-% \begin{slide}{Methods: Weight Update}
+% \begin{slide}{Methods: Gradient Descent}
 %   \centering
 %   % Note that w is actually a multidimensional vector, so this plot is not quite precise, unless we assume that w consists of only one component
 %   % Usually you will see three-dimensional plots
@@ -608,7 +610,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
 %   % Remember that we hold Y and Y_hat constant,
 % \end{slide}
 %
-% \begin{slide}{Methods: Weight Update}
+% \begin{slide}{Methods: Gradient Descent}
 %   \centering
 %   \begin{itemize}
 %     \item<1-> This method of updating weights is called \emph{Gradient Descent} (GD)
@@ -618,7 +620,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
 %   \end{itemize}
 % \end{slide}
 %
-% \begin{slide}{Methods: Weight Update}
+% \begin{slide}{Methods: Gradient Descent}
 %   \centering
 %   \begin{itemize}
 %     \item<1-> The goal of GD is to find the weights that minimize the loss for our training data
@@ -639,10 +641,11 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
 
 \begin{slide}{Methods: Regularization}
   \begin{itemize}
-    \item Generalization
-    \item Regularization
-    \item Capacity
-    % \item We want our models to \emph{generalize}
+    % \item Generalization
+    % \item Capacity
+    \item<1-> We want our models to \emph{generalize}
+    \item<2-> \emph{Regularization} helps us with this
+    \item<3-> We try to influence a model's \emph{capacity}
     % \item Parameters should not specialize too much to training data
     % \pitem \emph{Regularization} is the art of finding a tradeoff between
     % \pitem \emph{Regularization} finds the tradeoff between
@@ -672,7 +675,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
     \draw [help lines] (-0.5, 0) grid (3.5, 3.8);
 
     % Function
-    \draw [domain=0:3, samples=100, dotted] plot (\x, {f(\x)});
+    \draw [domain=0:3, samples=100, dotted, thick] plot (\x, {f(\x)});
 
     % Some training points
     \foreach \x in {0, 0.1, ..., 3} {
@@ -699,7 +702,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
     \draw [help lines] (-0.5, 0) grid (3.5, 3.8);
 
     % Function
-    \draw [domain=0:3, samples=100, dotted] plot (\x, {f(\x)});
+    \draw [domain=0:3, samples=100, dotted, thick] plot (\x, {f(\x)});
 
     % Some test points
     \path [red] (1, {f(1)}) coordinate [fill, circle, inner sep=1pt] (a);
@@ -744,7 +747,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
     \draw [help lines] (-0.5, 0) grid (3.5, 3.8);
 
     % Function
-    \draw [domain=0:3, samples=100, dotted] plot (\x, {f(\x)});
+    \draw [domain=0:3, samples=100, dotted, thick] plot (\x, {f(\x)});
 
     % Some test points
     \path [red] (1, {f(1)}) coordinate [fill, circle, inner sep=1pt] (a);
@@ -778,7 +781,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
     \draw [help lines] (-0.5, 0) grid (3.5, 3.8);
 
     % Function
-    \draw [domain=0:3, samples=100, dotted] plot (\x, {f(\x)});
+    \draw [domain=0:3, samples=100, dotted, thick] plot (\x, {f(\x)});
 
     % Some test points
     \path [red] (1, {f(1)}) coordinate [fill, circle, inner sep=1pt] (a);
