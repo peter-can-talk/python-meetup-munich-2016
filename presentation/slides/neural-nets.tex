@@ -24,8 +24,10 @@
     \pitem Receive electrochemical signals through \emph{dendrites}
     \pitem Fire their own signal if the input exceeds some threshold
     \pitem Forward their signals via \emph{axons}
-    \pitem Connected via \emph{synapses}, which control the strength of interaction % (multiplicative factor)
-    \pitem The dynamic alteration of synaptic strengths are the primary source of human \emph{learning} % in this simplified model at least
+    % \pitem Connected via \emph{synapses}, which control the strength of interaction % (multiplicative factor)
+    \pitem Connected via \emph{synapses}
+    % \pitem The dynamic alteration of synaptic strengths are the primary source of human \emph{learning} % in this simplified model at least
+
     % Pavlovian example: human rings bell, dog salivates. So the corresponding connections between the parts of the brain responsible for hearing (the neurons responsible for reacting to this bell noise) and the part responsible for salivation (I'm hungry mode) have strong synaptic connections, so that their stimuli are closely correlated.
   \end{itemize}
 \end{slide}
@@ -157,9 +159,10 @@
 
 \begin{slide}{Artificial Neural Networks}
   \begin{itemize}
-    \item<2-> First attempt at Artificial Neural Network (ANN) by McCulloch and Pitts in 1943
-    \item<3-> Summed binary inputs and thresholded them
-    \item<4-> Could learn AND, NOT and OR functions
+    % \item<2-> First attempt at Artificial Neural Network (ANN) by McCulloch and Pitts in 1943
+    \item<2-> First attempt by McCulloch and Pitts in 1943
+    \item<3-> Sum binary inputs and threshold them
+    \item<4-> Can learn AND, NOT and OR functions
   \end{itemize}
   \vspace{1cm}
 
@@ -188,8 +191,9 @@
     \item<1-> Frank Rosenblatt improved on this model in 1957
     \item<2-> He \emph{weighted} the inputs and added a bias
     % The bias means we can not only learn all linear but all affine functions
-    \item<3-> This models the synaptic strengths between axons and dendrites
-    \item<4-> He called this model a \emph{Perceptron}
+    % \item<3-> This models the synaptic strengths between axons and dendrites
+    % \item<3-> Models the synaptic strengths
+    \item<3-> He called this model a \emph{Perceptron}
   \end{itemize}
   \vspace{0.5cm}
 
@@ -370,7 +374,7 @@
     \item<1-> The solution:
     \begin{itemize}
       \item<2-> A hidden layer
-      \item<3-> With \emph{non-linear} activation functions
+      \item<3-> With \emph{non-linear} iteration functions
     \end{itemize}
   \end{itemize}
   \vspace{0.75cm}
@@ -855,7 +859,7 @@
     \item<3-> Basic idea:
     \begin{itemize}
       \item<4-> We deactivate neurons on each activation with probability $p$
-      \item<5-> Can be seen as sampling a new neural network each time
+      % \item<5-> Can be seen as sampling a new neural network each time
       \item<5-> This prevents neurons from depending too much on each other % A unit could put all the weight into one input unit
       % \item<7-> When we deactivate $1/p$ units, we scale active units by $p$
       % This ensures that the expected sum coming to the unit stays the same

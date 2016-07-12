@@ -97,236 +97,236 @@
   }
 \end{slide}
 
-\begin{frame}[fragile]{Machine Memory}
-  \begin{center}
-  \begin{tikzpicture}
-    % Nodes
-    \path (0, 0) coordinate [draw, circle, inner sep=10pt] (x) node {$x_t$};
-    \path (0, 2.5) coordinate [draw, circle, inner sep=10pt] (h) node {$h_t$};
-    \path (0, 5) coordinate [draw, circle, inner sep=10pt] (y) node {$y_t$};
-
-    % Connections
-    \only<1>{\draw [->] (x) -- (h);}
-    \only<2>{\draw [->] (x) -- (h) node [left, midway] {$w$};}
-    \draw [->] (h) -- (y);
-
-    \newcommand{\timestep}[2]{
-      % Nodes
-      \path (#1, 0) coordinate [draw, circle, inner sep=10pt]
-            (x#2) node {$x_{t+#2}$};
-      \path (#1, 2.5) coordinate [draw, circle, inner sep=10pt]
-            (h#2) node {$h_{t+#2}$};
-      \path (#1, 5) coordinate [draw, circle, inner sep=10pt]
-            (y#2) node {$y_{t+#2}$};
-
-      % Connections
-      \only<1>{\draw [->] (x#2) -- (h#2);}
-      \only<2->{\draw [->] (x#2) -- (h#2) node [left, midway] {$w$};}
-      \draw [->] (h#2) -- (y#2);
-    }
-
-    \timestep{2}{1}
-    \draw [->] (h) -- (h1);
-
-    \timestep{4}{2}
-    \draw [->] (h1) -- (h2);
-  \end{tikzpicture}
-  \end{center}
-\end{frame}
-
-\begin{frame}[fragile]{Machine Memory}
-  \begin{center}
-  \begin{tikzpicture}
-    % Nodes
-    \path (0, 0) coordinate [draw, circle, inner sep=10pt] (x) node {$x_t$};
-    \path (0, 2.5) coordinate [draw, circle, inner sep=10pt] (h) node {$h_t$};
-    \path (0, 5) coordinate [draw, circle, inner sep=10pt] (y) node {$y_t$};
-    \path (0, 1.25) coordinate [draw, circle, inner sep=7pt]
-          (w) node {$w$};
-
-    % Connections
-    \draw [->] (x) -- (w);
-    \draw [->] (w) -- (h);
-    \draw [->] (h) -- (y);
-
-    \newcommand{\timestep}[2]{
-      % Nodes
-      \path (#1, 0) coordinate [draw, circle, inner sep=10pt]
-            (x#2) node {$x_{t+#2}$};
-      \path (#1, 2.5) coordinate [draw, circle, inner sep=10pt]
-            (h#2) node {$h_{t+#2}$};
-      \path (#1, 5) coordinate [draw, circle, inner sep=10pt]
-            (y#2) node {$y_{t+#2}$};
-      \path (#1, 1.25) coordinate [draw, circle, inner sep=7pt]
-            (w#2) node {$w$};
-
-      % Connections
-      \draw [->] (x#2) -- (w#2);
-      \draw [->] (w#2) -- (h#2);
-      \draw [->] (h#2) -- (y#2);
-    }
-
-    \timestep{2}{1}
-    \draw [->] (h) -- (h1);
-
-    \timestep{4}{2}
-    \draw [->] (h1) -- (h2);
-  \end{tikzpicture}
-  \end{center}
-\end{frame}
-
-\begin{frame}[fragile]{Machine Memory}
-  \begin{center}
-  \begin{tikzpicture}
-    % Nodes
-    \path (0, 0) coordinate [draw, circle, inner sep=10pt] (x) node {$x_t$};
-    \path (0, 2.5) coordinate [draw, circle, inner sep=10pt] (h) node {$h_t$};
-    \path (0, 5) coordinate [draw, circle, inner sep=10pt] (y) node {$y_t$};
-    \path (0, 1.25) coordinate [draw, circle, inner sep=7pt]
-          (w) node {$w$};
-
-    % Connections
-    \draw [->] (x) -- (w);
-    \draw [->] (w) -- (h);
-    \draw [->] (h) -- (y);
-
-    \newcommand{\timestep}[2]{
-      % Nodes
-      \path (#1, 0) coordinate [draw, circle, inner sep=10pt]
-            (x#2) node {$x_{t-#2}$};
-      \path (#1, 2.5) coordinate [draw, circle, inner sep=10pt]
-            (h#2) node {$h_{t-#2}$};
-      \path (#1, 5) coordinate [draw, circle, inner sep=10pt]
-            (y#2) node {$y_{t-#2}$};
-      \path (#1, 1.25) coordinate [draw, circle, inner sep=7pt]
-            (w#2) node {$w$};
-
-      % Connections
-      \draw [->] (x#2) -- (w#2);
-      \draw [->] (w#2) -- (h#2);
-      \draw [->] (h#2) -- (y#2);
-    }
-
-    \timestep{-2}{1}
-    \draw [->] (h) -- (h1);
-
-    \timestep{-4}{2}
-    \draw [->] (h1) -- (h2);
-  \end{tikzpicture}
-  \end{center}
-\end{frame}
-
-\begin{frame}[fragile]{Machine Memory}
-  \begin{center}
-  \begin{tikzpicture}
-    % Nodes
-    \path (0, 2.5) coordinate [draw, circle, inner sep=10pt] (h) node {$h_t$};
-    \path (0, 5) coordinate [draw, circle, inner sep=10pt] (y) node {$y_t$};
-    \path (0, 1.25) coordinate [draw, circle, inner sep=7pt]
-          (w) node {$w$};
-
-    % Connections
-    \draw [->] (w) -- (h);
-    \draw [->] (h) -- (y);
-
-    \newcommand{\timestep}[2]{
-      % Nodes
-      \path (#1, 2.5) coordinate [draw, circle, inner sep=10pt]
-            (h#2) node {$h_{t-#2}$};
-      \path (#1, 1.25) coordinate [draw, circle, inner sep=7pt]
-            (w#2) node {$w$};
-
-      % Connections
-      \draw [->] (w#2) -- (h#2);
-    }
-
-    \timestep{-2}{1}
-    \draw [->] (h) -- (h1);
-
-    \timestep{-4}{2}
-    \draw [->] (h1) -- (h2);
-  \end{tikzpicture}
-  \end{center}
-\end{frame}
-
-\begin{frame}[fragile]{Machine Memory}
-  \begin{center}
-  \begin{tikzpicture}
-    % Weight
-    \path (-2, 0) coordinate [draw, circle, inner sep=7pt]
-          (w) node {$w$};
-
-    % Nodes
-    \path (0, 2.5) coordinate [draw, circle, inner sep=10pt] (h) node {$h_t$};
-    \path (0, 5) coordinate [draw, circle, inner sep=10pt] (y) node {$y_t$};
-
-    % Connections
-    \only<1>{\draw [->] (h) -- (y);}
-    \only<2->{
-      \draw [red, ->] (h) -- (y)
-            node [black, right, midway] {$\frac{\partial y_t}{\partial h_t}$};
-    }
-    \only<-2>{\draw [->] (w) -- (h);}
-    \only<3->{
-      \draw [red, ->] (w) -- (h)
-            node [black, right, pos=0.7] {$\frac{\partial h_t}{\partial w}$};
-    }
-
-    % Nodes
-    \path (-2, 2.5) coordinate [draw, circle, inner sep=10pt]
-          (h1) node {$h_{t-1}$};
-    % Connections
-    \only<-4>{\draw [->] (w) -- (h1);}
-    \only<5->{
-      \draw [red, ->] (w) -- (h1)
-            node [black, right, pos=0.7] {$\frac{\partial h_{t-1}}{\partial w}$};
-    }
-    \only<-3>{\draw [->] (h) -- (h1);}
-    \only<4->{
-      \draw [red, ->] (h) -- (h1)
-            node [black, above, midway] {$\frac{\partial h_t}{\partial h_{t-1}}$};
-    }
-
-    \path (-4, 2.5) coordinate [draw, circle, inner sep=10pt]
-          (h2) node {$h_{t-2}$};
-    % Connections
-    \only<-6>{\draw [->] (w) -- (h2);}
-    \only<7->{
-      \draw [red, ->] (w) -- (h2)
-            node [black, pos=0.7, right] {$\frac{\partial h_{t-2}}{\partial w}$};
-    }
-    \only<-5>{\draw [->] (h1) -- (h2);}
-    \only<6->{
-      \draw [red, ->] (h1) -- (h2)
-            node [black, above, midway] {$\frac{\partial h_{t-1}}{\partial h_{t-2}}$};
-    }
-
-    \only<7-> {
-    \path (-7, 2.5) coordinate [draw, circle, inner sep=10pt]
-          (1) node {$h_1$};
-      \draw [semithick, dotted, ->] (h2) -- (1);
-      \draw [->] (w) -- (1);
-    }
-    \onslide<8>{
-    \draw (-3, -1) node {%
-      $
-        \frac{\partial h_t}{\partial h_{t-1}}
-        \frac{\partial h_{t-1}}{\partial h_{t-2}}
-        \frac{\partial h_{t-2}}{\partial h_{t-3}}
-        \dotsm
-        \frac{\partial h_2}{\partial h_1}
-      $
-    };
-    }
-    \onslide<9>{
-      \draw (-3, -1) node {$0.1 \cdot 0.1 \cdot 0.1 \dotsm 0.1$};
-    }
-    \onslide<10>{
-      \draw (-3, -1) node {$0.1 \cdot 0.1 \cdot 0.1 \dotsm 0.1 \approx 0$};
-    }
-  \end{tikzpicture}
-  \end{center}
-\end{frame}
+% \begin{frame}[fragile]{Machine Memory}
+%   \begin{center}
+%   \begin{tikzpicture}
+%     % Nodes
+%     \path (0, 0) coordinate [draw, circle, inner sep=10pt] (x) node {$x_t$};
+%     \path (0, 2.5) coordinate [draw, circle, inner sep=10pt] (h) node {$h_t$};
+%     \path (0, 5) coordinate [draw, circle, inner sep=10pt] (y) node {$y_t$};
+%
+%     % Connections
+%     \only<1>{\draw [->] (x) -- (h);}
+%     \only<2>{\draw [->] (x) -- (h) node [left, midway] {$w$};}
+%     \draw [->] (h) -- (y);
+%
+%     \newcommand{\timestep}[2]{
+%       % Nodes
+%       \path (#1, 0) coordinate [draw, circle, inner sep=10pt]
+%             (x#2) node {$x_{t+#2}$};
+%       \path (#1, 2.5) coordinate [draw, circle, inner sep=10pt]
+%             (h#2) node {$h_{t+#2}$};
+%       \path (#1, 5) coordinate [draw, circle, inner sep=10pt]
+%             (y#2) node {$y_{t+#2}$};
+%
+%       % Connections
+%       \only<1>{\draw [->] (x#2) -- (h#2);}
+%       \only<2->{\draw [->] (x#2) -- (h#2) node [left, midway] {$w$};}
+%       \draw [->] (h#2) -- (y#2);
+%     }
+%
+%     \timestep{2}{1}
+%     \draw [->] (h) -- (h1);
+%
+%     \timestep{4}{2}
+%     \draw [->] (h1) -- (h2);
+%   \end{tikzpicture}
+%   \end{center}
+% \end{frame}
+%
+% \begin{frame}[fragile]{Machine Memory}
+%   \begin{center}
+%   \begin{tikzpicture}
+%     % Nodes
+%     \path (0, 0) coordinate [draw, circle, inner sep=10pt] (x) node {$x_t$};
+%     \path (0, 2.5) coordinate [draw, circle, inner sep=10pt] (h) node {$h_t$};
+%     \path (0, 5) coordinate [draw, circle, inner sep=10pt] (y) node {$y_t$};
+%     \path (0, 1.25) coordinate [draw, circle, inner sep=7pt]
+%           (w) node {$w$};
+%
+%     % Connections
+%     \draw [->] (x) -- (w);
+%     \draw [->] (w) -- (h);
+%     \draw [->] (h) -- (y);
+%
+%     \newcommand{\timestep}[2]{
+%       % Nodes
+%       \path (#1, 0) coordinate [draw, circle, inner sep=10pt]
+%             (x#2) node {$x_{t+#2}$};
+%       \path (#1, 2.5) coordinate [draw, circle, inner sep=10pt]
+%             (h#2) node {$h_{t+#2}$};
+%       \path (#1, 5) coordinate [draw, circle, inner sep=10pt]
+%             (y#2) node {$y_{t+#2}$};
+%       \path (#1, 1.25) coordinate [draw, circle, inner sep=7pt]
+%             (w#2) node {$w$};
+%
+%       % Connections
+%       \draw [->] (x#2) -- (w#2);
+%       \draw [->] (w#2) -- (h#2);
+%       \draw [->] (h#2) -- (y#2);
+%     }
+%
+%     \timestep{2}{1}
+%     \draw [->] (h) -- (h1);
+%
+%     \timestep{4}{2}
+%     \draw [->] (h1) -- (h2);
+%   \end{tikzpicture}
+%   \end{center}
+% \end{frame}
+%
+% \begin{frame}[fragile]{Machine Memory}
+%   \begin{center}
+%   \begin{tikzpicture}
+%     % Nodes
+%     \path (0, 0) coordinate [draw, circle, inner sep=10pt] (x) node {$x_t$};
+%     \path (0, 2.5) coordinate [draw, circle, inner sep=10pt] (h) node {$h_t$};
+%     \path (0, 5) coordinate [draw, circle, inner sep=10pt] (y) node {$y_t$};
+%     \path (0, 1.25) coordinate [draw, circle, inner sep=7pt]
+%           (w) node {$w$};
+%
+%     % Connections
+%     \draw [->] (x) -- (w);
+%     \draw [->] (w) -- (h);
+%     \draw [->] (h) -- (y);
+%
+%     \newcommand{\timestep}[2]{
+%       % Nodes
+%       \path (#1, 0) coordinate [draw, circle, inner sep=10pt]
+%             (x#2) node {$x_{t-#2}$};
+%       \path (#1, 2.5) coordinate [draw, circle, inner sep=10pt]
+%             (h#2) node {$h_{t-#2}$};
+%       \path (#1, 5) coordinate [draw, circle, inner sep=10pt]
+%             (y#2) node {$y_{t-#2}$};
+%       \path (#1, 1.25) coordinate [draw, circle, inner sep=7pt]
+%             (w#2) node {$w$};
+%
+%       % Connections
+%       \draw [->] (x#2) -- (w#2);
+%       \draw [->] (w#2) -- (h#2);
+%       \draw [->] (h#2) -- (y#2);
+%     }
+%
+%     \timestep{-2}{1}
+%     \draw [->] (h) -- (h1);
+%
+%     \timestep{-4}{2}
+%     \draw [->] (h1) -- (h2);
+%   \end{tikzpicture}
+%   \end{center}
+% \end{frame}
+%
+% \begin{frame}[fragile]{Machine Memory}
+%   \begin{center}
+%   \begin{tikzpicture}
+%     % Nodes
+%     \path (0, 2.5) coordinate [draw, circle, inner sep=10pt] (h) node {$h_t$};
+%     \path (0, 5) coordinate [draw, circle, inner sep=10pt] (y) node {$y_t$};
+%     \path (0, 1.25) coordinate [draw, circle, inner sep=7pt]
+%           (w) node {$w$};
+%
+%     % Connections
+%     \draw [->] (w) -- (h);
+%     \draw [->] (h) -- (y);
+%
+%     \newcommand{\timestep}[2]{
+%       % Nodes
+%       \path (#1, 2.5) coordinate [draw, circle, inner sep=10pt]
+%             (h#2) node {$h_{t-#2}$};
+%       \path (#1, 1.25) coordinate [draw, circle, inner sep=7pt]
+%             (w#2) node {$w$};
+%
+%       % Connections
+%       \draw [->] (w#2) -- (h#2);
+%     }
+%
+%     \timestep{-2}{1}
+%     \draw [->] (h) -- (h1);
+%
+%     \timestep{-4}{2}
+%     \draw [->] (h1) -- (h2);
+%   \end{tikzpicture}
+%   \end{center}
+% \end{frame}
+%
+% \begin{frame}[fragile]{Machine Memory}
+%   \begin{center}
+%   \begin{tikzpicture}
+%     % Weight
+%     \path (-2, 0) coordinate [draw, circle, inner sep=7pt]
+%           (w) node {$w$};
+%
+%     % Nodes
+%     \path (0, 2.5) coordinate [draw, circle, inner sep=10pt] (h) node {$h_t$};
+%     \path (0, 5) coordinate [draw, circle, inner sep=10pt] (y) node {$y_t$};
+%
+%     % Connections
+%     \only<1>{\draw [->] (h) -- (y);}
+%     \only<2->{
+%       \draw [red, ->] (h) -- (y)
+%             node [black, right, midway] {$\frac{\partial y_t}{\partial h_t}$};
+%     }
+%     \only<-2>{\draw [->] (w) -- (h);}
+%     \only<3->{
+%       \draw [red, ->] (w) -- (h)
+%             node [black, right, pos=0.7] {$\frac{\partial h_t}{\partial w}$};
+%     }
+%
+%     % Nodes
+%     \path (-2, 2.5) coordinate [draw, circle, inner sep=10pt]
+%           (h1) node {$h_{t-1}$};
+%     % Connections
+%     \only<-4>{\draw [->] (w) -- (h1);}
+%     \only<5->{
+%       \draw [red, ->] (w) -- (h1)
+%             node [black, right, pos=0.7] {$\frac{\partial h_{t-1}}{\partial w}$};
+%     }
+%     \only<-3>{\draw [->] (h) -- (h1);}
+%     \only<4->{
+%       \draw [red, ->] (h) -- (h1)
+%             node [black, above, midway] {$\frac{\partial h_t}{\partial h_{t-1}}$};
+%     }
+%
+%     \path (-4, 2.5) coordinate [draw, circle, inner sep=10pt]
+%           (h2) node {$h_{t-2}$};
+%     % Connections
+%     \only<-6>{\draw [->] (w) -- (h2);}
+%     \only<7->{
+%       \draw [red, ->] (w) -- (h2)
+%             node [black, pos=0.7, right] {$\frac{\partial h_{t-2}}{\partial w}$};
+%     }
+%     \only<-5>{\draw [->] (h1) -- (h2);}
+%     \only<6->{
+%       \draw [red, ->] (h1) -- (h2)
+%             node [black, above, midway] {$\frac{\partial h_{t-1}}{\partial h_{t-2}}$};
+%     }
+%
+%     \only<7-> {
+%     \path (-7, 2.5) coordinate [draw, circle, inner sep=10pt]
+%           (1) node {$h_1$};
+%       \draw [semithick, dotted, ->] (h2) -- (1);
+%       \draw [->] (w) -- (1);
+%     }
+%     \onslide<8>{
+%     \draw (-3, -1) node {%
+%       $
+%         \frac{\partial h_t}{\partial h_{t-1}}
+%         \frac{\partial h_{t-1}}{\partial h_{t-2}}
+%         \frac{\partial h_{t-2}}{\partial h_{t-3}}
+%         \dotsm
+%         \frac{\partial h_2}{\partial h_1}
+%       $
+%     };
+%     }
+%     \onslide<9>{
+%       \draw (-3, -1) node {$0.1 \cdot 0.1 \cdot 0.1 \dotsm 0.1$};
+%     }
+%     \onslide<10>{
+%       \draw (-3, -1) node {$0.1 \cdot 0.1 \cdot 0.1 \dotsm 0.1 \approx 0$};
+%     }
+%   \end{tikzpicture}
+%   \end{center}
+% \end{frame}
 
 \begin{slide}{LSTMs}
   \begin{itemize}

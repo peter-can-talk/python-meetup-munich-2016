@@ -61,7 +61,7 @@
   \begin{itemize}
     \item The components of each vector $\mathbf{b}$ are our \textbf{features}
     \item Each feature represents one axis in space
-    \item<3-> Each feature should contribute to some extent to the output value (market price)
+    \item<3-> Each feature should contribute to some extent to the output value
   \end{itemize}
   \end{column}
   \begin{column}{0.5\textwidth}
@@ -105,17 +105,17 @@
   \begin{column}{0.55\textwidth}
   \begin{itemize}
     \item<1-> To model this, we apply a weight $w_i$ to each component $b_i$
-    \item<2-> Positive values of $w_i$ \emph{encourage} positive values of $b_i$
-    \item<3-> Negative values of $w_i$ \emph{inhibit} $b_i$
-    \item<4-> We add a bias $c$ as an offset % e.g. negative bias means we expect a minimum amount for the sum of each component
-    \item<5-> We expect our algorithm to learn $\mathbf{w}$ and $c$% We initialize them to zero, or more commonly, random values (e.g. from a uniform or gaussian distribution)
+    % \item<2-> Positive values of $w_i$ \emph{encourage} positive values of $b_i$
+    % \item<3-> Negative values of $w_i$ \emph{inhibit} $b_i$
+    \item<2-> We add a bias $c$ as an offset % e.g. negative bias means we expect a minimum amount for the sum of each component
+    \item<3-> We expect our algorithm to learn $\mathbf{w}$ and $c$% We initialize them to zero, or more commonly, random values (e.g. from a uniform or gaussian distribution)
   \end{itemize}
   \end{column}
   \begin{column}{0.45\textwidth}
     \centering
-    \only<1-3> {$f(\mathbf{b}) = w_1b_1 + w_2b_2 + w_3b_3$}
-    \only<4> {$f(\mathbf{b}) = w_1b_1 + w_2b_2 + w_3b_3 + c$}
-    \only<5> {$f(\mathbf{b}) = \mathbf{w}^\top\mathbf{b} + c$}
+    \only<1> {$f(\mathbf{b}) = w_1b_1 + w_2b_2 + w_3b_3$}
+    \only<2> {$f(\mathbf{b}) = w_1b_1 + w_2b_2 + w_3b_3 + c$}
+    \only<3> {$f(\mathbf{b}) = \mathbf{w}^\top\mathbf{b} + c$}
   \end{column}
 \end{columns}
 \end{slide}
@@ -131,11 +131,11 @@
 \begin{frame}[fragile]{Methods: Data}
   \begin{itemize}
     \item To make our algorithm learn, we need to feed it (lots of) data
-    \item<2-> In practice, we organize our data into a matrix $\mathbf{D} \in
-    \mathbb{R}^{n \times k}$
+    % \item<2-> In practice, we organize our data into a matrix $\mathbf{D} \in
+    % \mathbb{R}^{n \times k}$
   \end{itemize}
-  \only<-2>{\vspace{3.7cm}}
-  \only<3> {
+  \only<1>{\vspace{3.7cm}}
+  \only<2> {
     \begin{center}
     \begin{blockarray}{cccc}
       & R & G & B \\
@@ -147,16 +147,17 @@
     \end{blockarray}\\
     \hspace{0.75cm}\textbf{Design Matrix}
   \end{center}
-  } \begin{onlyenv}<4>
-  \vspace{1cm}
-  \begin{lstlisting}
-    D = np.array([[34, 147, 37], [247, 69, 13], [66, 66, 66]])
-    w = np.random.rand(3, 1)
-    b = np.random.randn()
-    y = D.dot(w) + b
-  \end{lstlisting}
-  \vspace{0.7cm}
-\end{onlyenv}
+  }
+%   \begin{onlyenv}<4>
+%   \vspace{1cm}
+%   \begin{lstlisting}
+%     D = np.array([[34, 147, 37], [247, 69, 13], [66, 66, 66]])
+%     w = np.random.rand(3, 1)
+%     b = np.random.randn()
+%     y = D.dot(w) + b
+%   \end{lstlisting}
+%   \vspace{0.7cm}
+% \end{onlyenv}
 \end{frame}
 
 \begin{slide}{Methods: Data}
@@ -169,10 +170,10 @@
         rectangle,
         text centered,
         rounded corners,
-        minimum width=2cm,
+        minimum width=2.2cm,
         minimum height=1.5cm
         ] (tr)
-            node [above] {Test Set}
+            node [above] {Training Set}
             node [below] {\,\,$60\%$};
       \draw (tr) -- (d);
     }
@@ -197,10 +198,10 @@
         rectangle,
         text centered,
         rounded corners,
-        minimum width=2.2cm,
+        minimum width=2cm,
         minimum height=1.5cm
         ] (te)
-          node [above] {Training Set}
+          node [above] {Test Set}
           node [below] {\,\,$20\%$};
     \draw (te) -- (d);
     }
@@ -209,9 +210,9 @@
 
 \begin{slide}{Methods: Measuring Performance}
 \begin{itemize}
-  \pitem Need a way to evaluate the performance of our algorithm ($P$)
+  \item Need a way to evaluate the performance of our algorithm ($P$)
   \pitem Once we know how well it is performing, we can update it
-  \pitem The loss function we use depends on the learning task
+  % \item The loss function we use depends on the learning task
 \end{itemize}
 \pause
 \vspace{0.5cm}
@@ -392,10 +393,10 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
 %   {\Large Multi-Class Classification}
 %   \vspace{0.5cm}
 %   \begin{itemize}
-%     \pitem More than two possible classes
-%     \pitem $\mathbf{y}$ becomes a matrix $\mathbf{Y}$ % Imagine we just had three separte linear regression classifiers
-%     \pitem $\mathbf{\hat{y}}$ becomes a matrix $\mathbf{\hat{Y}}$
-%     \pitem Each row $\mathbf{\hat{Y}}_i$ is \emph{one-hot encoded}: $(0, \dots, 1, \dots, 0)^\top$
+%     \item More than two possible classes
+%     \item $\mathbf{y}$ becomes a matrix $\mathbf{Y}$ % Imagine we just had three separte linear regression classifiers
+%     \item $\mathbf{\hat{y}}$ becomes a matrix $\mathbf{\hat{Y}}$
+%     \item Each row $\mathbf{\hat{Y}}_i$ is \emph{one-hot encoded}: $(0, \dots, 1, \dots, 0)^\top$
 %   \end{itemize}
 % \end{slide}
 %
@@ -422,9 +423,9 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
 %   $$
 %
 %   \begin{itemize}
-%     \pitem $\mathbf{\hat{Y}}$ can be interpreted as the likelyhood of each class
-%     \pitem $\mathbf{Y}$ can be interpreted as random numbers
-%     \pitem We want to turn $\mathbf{Y}$ into a probability distribution
+%     \item $\mathbf{\hat{Y}}$ can be interpreted as the likelyhood of each class
+%     \item $\mathbf{Y}$ can be interpreted as random numbers
+%     \item We want to turn $\mathbf{Y}$ into a probability distribution
 %   \end{itemize}
 % \end{slide}
 %
@@ -472,11 +473,11 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
 \begin{slide}{Methods: Weight Update}
   \centering
 \begin{itemize}
-  \pitem Through $L(\mathbf{y}, \mathbf{\hat{y}})$ we know how our algorithm is performing
+  \item Through $L(\mathbf{y}, \mathbf{\hat{y}})$ we know how our algorithm is performing
   \pitem We can compute its rate of change (derivative)
   \pitem Move our weights in the opposite direction
-  \pitem Next time, the loss will be smaller
-  \pitem We repeat this, until we're happy
+  % \item Next time, the loss will be smaller
+  % \item We repeat this, until we're happy
 \end{itemize}
 
 \pause
@@ -488,16 +489,17 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
   \centering
   \begin{itemize}
     % L is the per-example loss
-    \pitem $L(\mathbf{y}, \mathbf{\hat{y}})$ depends on $\mathbf{y}$ and $\mathbf{\hat{y}}$, but \emph{also} $\mathbf{w}$: $L(\mathbf{y}, \mathbf{\hat{y}}; \mathbf{w})$
-    \pitem We are interested in the way the loss changes w.r.t to the \emph{weights} $\mathbf{w}$ (and bias $b$) % but we can just think of b as an extra entry in the vector w if we adjust our design matrix accordingly
-    \pitem Moreover, we think in terms of entire batches, not single examples
-    \pitem We need new notation:
+    \item $L(\mathbf{y}, \mathbf{\hat{y}})$ depends on $\mathbf{y}$ and $\mathbf{\hat{y}}$, but \emph{also} $\mathbf{w}$: $L(\mathbf{y}, \mathbf{\hat{y}}; \mathbf{w})$
+    % \item We are interested in the way the loss changes w.r.t to the \emph{weights} $\mathbf{w}$ (and bias $b$) % but we can just think of b as an extra entry in the vector w if we adjust our design matrix accordingly
+    % \item Moreover, we think in terms of entire batches, not single examples
+    % \item We need new notation:
+    \pitem We can think of $\mathbf{Y}, \mathbf{\hat{Y}}$ as being \emph{constant} and write: $$J(w) = \frac{1}{n}\sum_{i=1}^n L(\mathbf{Y}_i, \mathbf{\hat{Y}}_i; w)$$
   \end{itemize}
   \vspace{0.5cm}
-  \pause
-  We can think of $\mathbf{Y}, \mathbf{\hat{Y}}$ as being \emph{constant} and write:
+  % \pause
+  % We can think of $\mathbf{Y}, \mathbf{\hat{Y}}$ as being \emph{constant} and write:
   % Remember that Y contains the results of our prediction, which we defined as the product of weights and our input features x. So we just keep the weights constant. This is exactly what the partial derivative does. In a sense, L is actually dependent of x *and* w, so when we compute the partial derivative of L w.r.t to w, we're keeping x constant. We just make this explicit here.
-  $$J(w) = \frac{1}{n}\sum_{i=1}^n L(\mathbf{Y}_i, \mathbf{\hat{Y}}_i; w)$$
+  % $$J(w) = \frac{1}{n}\sum_{i=1}^n L(\mathbf{Y}_i, \mathbf{\hat{Y}}_i; w)$$
   % This is really just a notational aid. When we compute the derivative, we're still actually computing partial derviatives, not total derivatives
   % The mean here is actually the expetance in the loss
 \end{slide}
@@ -519,7 +521,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
     % No ticks, because we have no units
 
     % Loss function
-    \draw [domain=-2.4:3.1, samples=200] plot (\x, {-0.05*\x^7 + 0.15*\x^6 + 0.25*\x^5 - 0.7*\x^4 - 0.35*\x^3 + 0.5*\x^2 + 0.55*\x + 1.55});
+    \draw [domain=-2.35:3.11, samples=200] plot (\x, {-0.05*\x^7 + 0.15*\x^6 + 0.25*\x^5 - 0.7*\x^4 - 0.35*\x^3 + 0.5*\x^2 + 0.55*\x + 1.55});
 
     % Grid
     % \draw [help lines] (-2.5, -0.5) grid (5, 5);
@@ -543,108 +545,112 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
 % we can think of a uni-variate function as a string, that we can fold up and down like a function f(x)
 % for a multi-variate function, like a two-variate function f(x, y), we can think of the function not as a string, but as a carpet. We can manipulate the carpet's two-dimensional shape in both of its two dimension. Fo example, we can make a hump in the carpet (hill, like __/-\__), then we are changing it in the one (x) dimension. We can observe a change of the function in this dimension. However, in this hump it is not changing in the other y dimension. But, we can additioanlly pull the hump up on the other side of the carpet (behind the __/-\__). Then we are changing it in the other, second dimension which we can observere, calculate and study. But when we are only concerned with the change of the function in the one dimension, in the way the hump is changing the function up and down in dependence of the x component, then we do not care about how the y dimension is pulling the carpet/hump up in the y dimension. So with a partial derivative we get a view of how the carpet is changing only in one of the dimensions. This is done by simply regarding the change in the other dimmension(s) s constant, since a constant will only move the hump up and down but not alter the way the hump changes the functions' value  in the x dimension. The important thing is that constants are lost when taking derivatives, so we are left only with the change of the carpet in onde dimension.
 
-\begin{slide}{Digression: Calculus Recap}
-  \begin{itemize}
-    \pitem Let's talk about $f$
-    \pitem When $f$ depends on one variable $x$, $$f'(x) = \frac{\mathrm{d}f}{\mathrm{d}x}$$ is the \emph{derivative} of $f$ w.r.t. $x$
-    \pitem It tells us how $f$ is changing in dependence of $x$
-  \end{itemize}
-\end{slide}
-
-\begin{slide}{Digression: Calculus Recap}
-  \begin{itemize}
-    \pitem In $f(x, y) = x + y$ both $x$ and $y$ are influencing $f$'s output
-    \pitem We want to know \emph{how} they are influencing $f$ independently
-    % We want to know, for a given x, by what amount is f cu
-    \pitem The partial derivative $\frac{\partial f}{\partial x}$ gives us a \emph{view} of $f$
-    \pitem In this view, all variables but $x$ are constant % And thus do not influence f's rate of change
-    \pitem Thus, we can extract the change of $f$ w.r.t. to $f$
-  \end{itemize}
-\end{slide}
-
-\begin{slide}{Digression: Calculus Recap}
-  \begin{itemize}
-    \pitem Let $f: \mathbb{R}^n \rightarrow \mathbb{R}$ be a scalar-valued function \emph{taking} a vector $\mathbf{x}$ as input.
-    \pitem Then $$\frac{\partial f}{\partial v_i}$$ is a partial derivative, and
-    \pitem $\nabla f$ the vector containing the partial derivatives of $w$: $$\nabla f = \left(\frac{\partial f}{\partial v_1}, \dots, \frac{\partial f}{\partial v_n}\right)^\top$$
-    \pitem $\nabla f$ is called the \emph{gradient} of $f$
-  \end{itemize}
-\end{slide}
-
-\begin{slide}{Methods: Weight Update}
-  \centering
-  % Note that w is actually a multidimensional vector, so this plot is not quite precise, unless we assume that w consists of only one component
-  % Usually you will see three-dimensional plots
-  \begin{tikzpicture}[scale=0.8]
-    % weight axis
-    \draw [->] (-2.5, 0)
-            -- (5, 0) node [below left] {$\mathbf{w}$};
-
-    % loss axis
-    \draw [->] (0, -0.5) node [left]{$0$}
-            -- (0, 5) node [left] {$J(\mathbf{w})$};
-
-    % No ticks, because we have no units
-
-    % Loss function
-    \draw [domain=-2.4:3.15, samples=200] plot (\x, {-0.05*\x^7 + 0.15*\x^6 + 0.25*\x^5 - 0.7*\x^4 - 0.35*\x^3 + 0.5*\x^2 + 0.55*\x + 1.55});
-
-    % Grid
-    % \draw [help lines] (-2.5, -0.5) grid (5, 5);
-
-    % Current weights
-    \draw [fill=red, thin] (2.3, 2.9) circle [radius=1.5pt];
-    \draw [red, dashed] (2.3, -0.1) -- (2.3, 2.85);
-
-    \draw [dotted] (1.8, 0.5) -- ++(78.5:4.75);
-  \end{tikzpicture}
-  % First explain what we are trying to do
-  \onslide<2>{
-  $$\nabla J(w) = \frac{1}{n}\sum_{i=1}^n \nabla_w L(\mathbf{Y}, \mathbf{\hat{Y}}_i; w)$$
-  }
-  %
-  % Remember that we hold Y and Y_hat constant,
-\end{slide}
-
-\begin{slide}{Methods: Weight Update}
-  \centering
-  \begin{itemize}
-    \item<1-> This method of updating weights is called \emph{Gradient Descent} (GD)
-    \item<2-> It adds a \emph{hyperparameter} $\alpha$ as a knob to tweak: $$w \leftarrow w - \alpha \nabla J(w)$$
-    \item<3-> $\alpha$ is called the \emph{learning rate}
-    \item<4-> Often, we will apply a decay to it
-  \end{itemize}
-\end{slide}
-
-\begin{slide}{Methods: Weight Update}
-  \centering
-  \begin{itemize}
-    \item<1-> The goal of GD is to find the weights that minimize the loss for our training data
-    \item<2-> The theoretical goal is to find the global minimum of $J(w)$
-    \item<3-> In practice, we most often use \emph{Stochastic Gradient Descent}
-    % The idea is: GD is just an estimate of where the weights should go. The weight update is not actually a mathematically exact operation. If you think about, we're subtracting the speed from the distance (since derivative of distance/time is speed). What does that even mean? Physicists won't even talk to you even more when you tell them that you're subtracting two values with different unit. So since GD is just an estimate, we can also make that estimate with a sample of our data and it will be stochastically valid.
-    \item<4-> Many variations and alternatives exist
-  \end{itemize}
-  \vspace{0.3cm}
-  \onslide<5->{
-  $$\nu = \gamma\nu + \alpha\nabla J(w)$$
-  $$w \leftarrow w - \nu$$
-  \textbf{Momentum Optimizer}
-  % The momentum optimizer takes previous gradients into account, or the current "trend of the gradient". This can be especially helpful to overcome local optima. Think of the gradient as a ball rolling down a hill, when the slope is steep, adding the previous gradient will make the weight update go back further, as if the ball had caught on momentum from rolling down the hill. This way, when there is a slight hill upwards after the local minimum, the ball will have gathered enough momentum to overcome the hill (i.e. the weight update will move w past the hill). Because then \gamma\nu will be, say, very negative and the new gradient very (-\nabla J) slightly positive, in total, the negative will prevail and our ball will roll past the local optimum.
-  }
-
-\end{slide}
+% \begin{slide}{Digression: Calculus Recap}
+%   \begin{itemize}
+%     \item Let's talk about $f$
+%     \item When $f$ depends on one variable $x$, $$f'(x) = \frac{\mathrm{d}f}{\mathrm{d}x}$$ is the \emph{derivative} of $f$ w.r.t. $x$
+%     \item It tells us how $f$ is changing in dependence of $x$
+%   \end{itemize}
+% \end{slide}
+%
+% \begin{slide}{Digression: Calculus Recap}
+%   \begin{itemize}
+%     \item In $f(x, y) = x + y$ both $x$ and $y$ are influencing $f$'s output
+%     \item We want to know \emph{how} they are influencing $f$ independently
+%     % We want to know, for a given x, by what amount is f cu
+%     \item The partial derivative $\frac{\partial f}{\partial x}$ gives us a \emph{view} of $f$
+%     \item In this view, all variables but $x$ are constant % And thus do not influence f's rate of change
+%     \item Thus, we can extract the change of $f$ w.r.t. to $f$
+%   \end{itemize}
+% \end{slide}
+%
+% \begin{slide}{Digression: Calculus Recap}
+%   \begin{itemize}
+%     \item Let $f: \mathbb{R}^n \rightarrow \mathbb{R}$ be a scalar-valued function \emph{taking} a vector $\mathbf{x}$ as input.
+%     \item Then $$\frac{\partial f}{\partial v_i}$$ is a partial derivative, and
+%     \item $\nabla f$ the vector containing the partial derivatives of $w$: $$\nabla f = \left(\frac{\partial f}{\partial v_1}, \dots, \frac{\partial f}{\partial v_n}\right)^\top$$
+%     \item $\nabla f$ is called the \emph{gradient} of $f$
+%   \end{itemize}
+% \end{slide}
+%
+% \begin{slide}{Methods: Weight Update}
+%   \centering
+%   % Note that w is actually a multidimensional vector, so this plot is not quite precise, unless we assume that w consists of only one component
+%   % Usually you will see three-dimensional plots
+%   \begin{tikzpicture}[scale=0.8]
+%     % weight axis
+%     \draw [->] (-2.5, 0)
+%             -- (5, 0) node [below left] {$\mathbf{w}$};
+%
+%     % loss axis
+%     \draw [->] (0, -0.5) node [left]{$0$}
+%             -- (0, 5) node [left] {$J(\mathbf{w})$};
+%
+%     % No ticks, because we have no units
+%
+%     % Loss function
+%     \draw [domain=-2.4:3.15, samples=200] plot (\x, {-0.05*\x^7 + 0.15*\x^6 + 0.25*\x^5 - 0.7*\x^4 - 0.35*\x^3 + 0.5*\x^2 + 0.55*\x + 1.55});
+%
+%     % Grid
+%     % \draw [help lines] (-2.5, -0.5) grid (5, 5);
+%
+%     % Current weights
+%     \draw [fill=red, thin] (2.3, 2.9) circle [radius=1.5pt];
+%     \draw [red, dashed] (2.3, -0.1) -- (2.3, 2.85);
+%
+%     \draw [dotted] (1.8, 0.5) -- ++(78.5:4.75);
+%   \end{tikzpicture}
+%   % First explain what we are trying to do
+%   \onslide<2>{
+%   $$\nabla J(w) = \frac{1}{n}\sum_{i=1}^n \nabla_w L(\mathbf{Y}, \mathbf{\hat{Y}}_i; w)$$
+%   }
+%   %
+%   % Remember that we hold Y and Y_hat constant,
+% \end{slide}
+%
+% \begin{slide}{Methods: Weight Update}
+%   \centering
+%   \begin{itemize}
+%     \item<1-> This method of updating weights is called \emph{Gradient Descent} (GD)
+%     \item<2-> It adds a \emph{hyperparameter} $\alpha$ as a knob to tweak: $$w \leftarrow w - \alpha \nabla J(w)$$
+%     \item<3-> $\alpha$ is called the \emph{learning rate}
+%     \item<4-> Often, we will apply a decay to it
+%   \end{itemize}
+% \end{slide}
+%
+% \begin{slide}{Methods: Weight Update}
+%   \centering
+%   \begin{itemize}
+%     \item<1-> The goal of GD is to find the weights that minimize the loss for our training data
+%     \item<2-> The theoretical goal is to find the global minimum of $J(w)$
+%     \item<3-> In practice, we most often use \emph{Stochastic Gradient Descent}
+%     % The idea is: GD is just an estimate of where the weights should go. The weight update is not actually a mathematically exact operation. If you think about, we're subtracting the speed from the distance (since derivative of distance/time is speed). What does that even mean? Physicists won't even talk to you even more when you tell them that you're subtracting two values with different unit. So since GD is just an estimate, we can also make that estimate with a sample of our data and it will be stochastically valid.
+%     \item<4-> Many variations and alternatives exist
+%   \end{itemize}
+%   \vspace{0.3cm}
+%   \onslide<5->{
+%   $$\nu = \gamma\nu + \alpha\nabla J(w)$$
+%   $$w \leftarrow w - \nu$$
+%   \textbf{Momentum Optimizer}
+%   % The momentum optimizer takes previous gradients into account, or the current "trend of the gradient". This can be especially helpful to overcome local optima. Think of the gradient as a ball rolling down a hill, when the slope is steep, adding the previous gradient will make the weight update go back further, as if the ball had caught on momentum from rolling down the hill. This way, when there is a slight hill upwards after the local minimum, the ball will have gathered enough momentum to overcome the hill (i.e. the weight update will move w past the hill). Because then \gamma\nu will be, say, very negative and the new gradient very (-\nabla J) slightly positive, in total, the negative will prevail and our ball will roll past the local optimum.
+%   }
+%
+% \end{slide}
 
 \begin{slide}{Methods: Regularization}
   \begin{itemize}
-    \pitem We want our models to \emph{generalize}
-    \pitem Parameters should not specialize too much to training data
-    \pitem \emph{Regularization} is the art of finding a tradeoff between
-    \begin{itemize}
-      \pitem Training error
-      \item Generalization error
-    \end{itemize}
-    \pitem We try to influence a model's \emph{capacity}
+    \item Generalization
+    \item Regularization
+    \item Capacity
+    % \item We want our models to \emph{generalize}
+    % \item Parameters should not specialize too much to training data
+    % \pitem \emph{Regularization} is the art of finding a tradeoff between
+    % \pitem \emph{Regularization} finds the tradeoff between
+    % \begin{itemize}
+    %   \item Training error
+    %   \item Generalization error
+    % \end{itemize}
+    % \item We try to influence a model's \emph{capacity}
   \end{itemize}
 \end{slide}
 
@@ -711,7 +717,7 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
   \end{tikzpicture}
 
   \onslide<2->{
-    Underfitting (low capacity)
+    Underfitting
     % Will have very bad training error
     % And also a very bad generalization error
     % Theoretically, it should generalize very well
@@ -720,40 +726,6 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
     % Then we should make use of that knowledge
     % Else the generalization error will be bad too
   }
-\end{slide}
-
-\begin{slide}{Concepts: Model Capacity}
-  \centering
-  \begin{tikzpicture}[
-      scale=1.2,
-      declare function={f(\x) = -14/9*\x^2 + 42/9*\x;}
-    ]
-    % x axis
-    \draw [->] (-0.7, 0) -- (3.5, 0) node [below] {$x$};
-
-    % y axis
-    \draw [->] (-0.5, -0.2) -- (-0.5, 4) node [left] {$y$};
-
-    % grid
-    \draw [help lines] (-0.5, 0) grid (3.5, 3.8);
-
-    % Function
-    \draw [domain=0.1:3, samples=100, dotted] plot (\x, {f(\x)});
-
-    % Some test points
-    \path [red] (1, {f(1)}) coordinate [fill, circle, inner sep=1pt] (a);
-    \path [red] (0.3, {f(0.3)}) coordinate [fill, circle, inner sep=1pt] (b);
-    \path [red] (2.4, {f(2.4)}) coordinate [fill, circle, inner sep=1pt] (c);
-
-    % Some training points
-    \foreach \x in {0, 0.1, ..., 3} {
-      \fill [black] (\x, {f(\x) + rand*0.5 + 0.05}) circle [radius=1pt];
-    }
-
-    \draw [domain=-0.2:3.1, samples=100] plot (\x, {-1.35*\x^2 + 4*\x + 0.45});
-  \end{tikzpicture}
-
-  Just Right (optimal capacity)
 \end{slide}
 
 \begin{slide}{Concepts: Model Capacity}
@@ -784,10 +756,44 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
       \fill [black] (\x, {f(\x) + rand*0.5 + 0.05}) circle [radius=1pt];
     }
 
-    \draw [domain=0:2.8, samples=800, /pgf/fpu,/pgf/fpu/output format=fixed] plot (\x, {-0.6904015551*\x^8 + 10.89843224*\x^7 - 69.51522312*\x^6 + 229.1182621*\x^5 - 413.7646904*\x^4 + 399.5064624*\x^3 - 185.9487975*\x^2 + 33.50595212*\x + 7.169728633*10^-8});
+    \draw [domain=-0.1:3.1, samples=100] plot (\x, {-1.35*\x^2 + 4*\x + 0.45});
   \end{tikzpicture}
 
-  Overfitting (too high capacity)
+  Just Right
+\end{slide}
+
+\begin{slide}{Concepts: Model Capacity}
+  \centering
+  \begin{tikzpicture}[
+      scale=1.2,
+      declare function={f(\x) = -14/9*\x^2 + 42/9*\x;}
+    ]
+    % x axis
+    \draw [->] (-0.7, 0) -- (3.5, 0) node [below] {$x$};
+
+    % y axis
+    \draw [->] (-0.5, -0.2) -- (-0.5, 4) node [left] {$y$};
+
+    % grid
+    \draw [help lines] (-0.5, 0) grid (3.5, 3.8);
+
+    % Function
+    \draw [domain=0:3, samples=100, dotted] plot (\x, {f(\x)});
+
+    % Some test points
+    \path [red] (1, {f(1)}) coordinate [fill, circle, inner sep=1pt] (a);
+    \path [red] (0.3, {f(0.3)}) coordinate [fill, circle, inner sep=1pt] (b);
+    \path [red] (2.4, {f(2.4)}) coordinate [fill, circle, inner sep=1pt] (c);
+
+    % Some training points
+    \foreach \x in {0, 0.1, ..., 3} {
+      \fill [black] (\x, {f(\x) + rand*0.5 + 0.05}) circle [radius=1pt];
+    }
+
+    \draw [domain=0:2.65, samples=800, /pgf/fpu,/pgf/fpu/output format=fixed] plot (\x, {-0.6904015551*\x^8 + 10.89843224*\x^7 - 69.51522312*\x^6 + 229.1182621*\x^5 - 413.7646904*\x^4 + 399.5064624*\x^3 - 185.9487975*\x^2 + 33.50595212*\x + 7.169728633*10^-8});
+  \end{tikzpicture}
+
+  Overfitting
 \end{slide}
 
 \begin{slide}{Methods: Regularization}
@@ -804,18 +810,18 @@ $$L(\mathbf{y}, \mathbf{\hat{y}}) \in \mathbb{R}$$
 \end{slide}
 
 \begin{slide}{Methods: Regularization}
-  \begin{itemize}
-    \item We can keep our polynomial from getting too funky by keeping weights small
-    \pitem We do so by \emph{adding the weights to the cost}
+  %\begin{itemize}
+    % \item We can keep our polynomial from getting too funky by keeping weights small
+    % \item We can regularize \emph{adding the weights to the cost}
 
-    $$J(w) = MSE(\mathbf{y}, \mathbf{\hat{y}}) + \lambda (\mathbf{w}^\top\mathbf{w})$$\\
-    \vspace{0.1cm}
+    $$J(\mathbf{w}) = MSE(\mathbf{y}, \mathbf{\hat{y}}) + \lambda (\mathbf{w}^\top\mathbf{w})$$%\\
+    % \vspace{0.1cm}
     % We square the weights because we want their magnitude
-    \pitem Our algorithm must make a tradeoff between
-    \begin{itemize}
-      \pitem Minimizing the training error (make weights large)
-      \item Keeping the cost small (make weights small)
-    \end{itemize}
-    \pitem We thus reduce the capacity by \emph{favoring} certain functions over others
-  \end{itemize}
+    % \item Our algorithm must make a tradeoff between
+    % \begin{itemize}
+    %   \item Minimizing the training error (make weights large)
+    %   \item Keeping the cost small (make weights small)
+    % \end{itemize}
+    % \item We thus reduce the capacity by \emph{favoring} certain functions over others
+  %\end{itemize}
 \end{slide}

@@ -89,7 +89,7 @@ If we ensure that the filters are used with the right padding, they should not a
 
 ConvNet architectures:
 
-`INPUT -> [[CONV -> RELU]*N -> POOL?]*M -> [FC -> RELU]*K -> FC`
+``
 
 We can visualize ConvNets with t-SNE using CNN-Codes (the activations just before the classifier, i.e. *before* the output layer.)
 
